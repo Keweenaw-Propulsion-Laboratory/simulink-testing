@@ -94,7 +94,7 @@ function Outputs(block)
         phi = 0;
     end
 
-    propForce = kP * (n^2);
+    propForce = kP * (n.^2);
 
     forceX = propForce * sin(theta + phi);
     forceZ = propForce * cos(theta + phi);
