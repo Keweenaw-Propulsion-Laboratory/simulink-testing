@@ -24,7 +24,7 @@ function setup(block)
     block.SetPreCompOutPortInfoToDynamic;
     
     % Override input port properties
-    for i = 1:6
+    for i = 1:5
         block.InputPort(i).DatatypeID  = 0;  % double
         block.InputPort(i).Complexity  = 'Real';
     end
@@ -47,31 +47,14 @@ function setup(block)
     %% Register methods called during update diagram/compilation
     %% -----------------------------------------------------------------
     block.RegBlockMethod('Outputs', @Outputs);
-    block.RegBlockMethod('CheckParameters', @CheckPrms);
+    % not implemented, but was mentioned in examples
+    % block.RegBlockMethod('CheckParameters', @CheckPrms);
     block.RegBlockMethod('ProcessParameters', @ProcessPrms);
     block.RegBlockMethod('PostPropagationSetup', @DoPostPropSetup)
     % not explicitely defined in ex.
-    block.RegBlockMethod('Terminate', @Terminate);
+    % block.RegBlockMethod('Terminate', @Terminate);
 end
 
-function CheckPrms(block)
-    % theta and phi not used
-    [~, ~, L, kP, n] = get_block_ins(block);
-
-    % if no theta -> set to zero
-    % if no phi -> zero
-    % if no L, kP, or n -> error
-
-    if(isempty(L))
-        error('Enter a value for the gimbal lever arm (L).')
-    end
-    if(isempty(kP))
-        error('Enter a value for the propeller constant (kP).')
-    end
-    if(isempty(n))
-        error('Enter a value for the propeller rev/s (n).')
-    end
-end
 
 function ProcessPrms(block)
     %% Update run time parameters
@@ -87,6 +70,21 @@ end
 % source of eqs: https://www.mathworks.com/help/aeroblks/rotor.html
 function Outputs(block)
     [theta, phi, L, kP, n] = get_block_ins(block);
+
+    % if no theta -> set to zero
+    % if no phi -> zero
+    % if no L, kP, or n -> error
+
+    % handle no inputs for the needed args
+    if(isempty(L))
+        error('Enter a value for the gimbal lever arm (L).')
+    end
+    if(isempty(kP))
+        error('Enter a value for the propeller constant (kP).')
+    end
+    if(isempty(n))
+        error('Enter a value for the propeller rev/s (n).')
+    end
     
     % handle no inputs for theta or phi
     if(isempty(theta))
@@ -107,12 +105,10 @@ function Outputs(block)
     block.OutputPort(3).Data = torque;
 end
 
-function block_ins = get_block_ins(block)
+function [theta, phi, L, kP, n] = get_block_ins(block)
     theta = block.InputPort(1).Data;
     phi = block.InputPort(2).Data;
     L = block.InputPort(3).Data;
     kP = block.InputPort(4).Data;
     n = block.InputPort(5).Data;
-
-    block_ins = [theta, phi, L, kP, n];
 end
