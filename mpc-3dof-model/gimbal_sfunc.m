@@ -1,5 +1,6 @@
 function gimbal_sfunc(block)
     setup(block)
+end
 
 
 function setup(block)
@@ -7,17 +8,16 @@ function setup(block)
     % - body orientation (theta)
     % - gimbal angle (phi)
     % - gimbal lever arm (L, m)
-    % - propeller constant (kT)
+    % - propeller constant (kP, N/(rev/s)^2)
     % - prop speed (n, rev/s)
-    % - prop diameter (D, m)
-    block.NumInputPorts = 6;
+    block.NumInputPorts = 5;
 
     % output ports:
     % - (maybe?) gimbal force
     % - trans. force x
     % - trans. force z
     % - gimbal torque (Nm)
-    block.NumOutputPorts = 4;
+    block.NumOutputPorts = 3;
 
     % Set up the port properties to be inherited or dynamic.
     block.SetPreCompInpPortInfoToDynamic;
@@ -47,25 +47,72 @@ function setup(block)
     %% Register methods called during update diagram/compilation
     %% -----------------------------------------------------------------
     block.RegBlockMethod('Outputs', @Outputs);
+    block.RegBlockMethod('CheckParameters', @CheckPrms);
+    block.RegBlockMethod('ProcessParameters', @ProcessPrms);
+    block.RegBlockMethod('PostPropagationSetup', @DoPostPropSetup)
     % not explicitely defined in ex.
     block.RegBlockMethod('Terminate', @Terminate);
+end
+
+function CheckPrms(block)
+    % theta and phi not used
+    [~, ~, L, kP, n] = get_block_ins(block);
+
+    % if no theta -> set to zero
+    % if no phi -> zero
+    % if no L, kP, or n -> error
+
+    if(isempty(L))
+        error('Enter a value for the gimbal lever arm (L).')
+    end
+    if(isempty(kP))
+        error('Enter a value for the propeller constant (kP).')
+    end
+    if(isempty(n))
+        error('Enter a value for the propeller rev/s (n).')
+    end
+end
+
+function ProcessPrms(block)
+    %% Update run time parameters
+    block.AutoUpdateRuntimePrms;
+end
+
+function DoPostPropSetup(block)
+    %% Register all tunable parameters as runtime parameters.
+    block.AutoRegRuntimePrms;
+end
 
 
 % source of eqs: https://www.mathworks.com/help/aeroblks/rotor.html
 function Outputs(block)
-    theta = block.InputPort(1).Data;
-    phi = block.InputPort(2).Data;
-    L = block.InputPort(3).Data;
-    kT = block.InputPort(4).Data;
-    n = block.InputPort(5).Data;
-    D = block.InputPort(6).Data;
+    [theta, phi, L, kP, n] = get_block_ins(block);
+    
+    % handle no inputs for theta or phi
+    if(isempty(theta))
+        theta = 0;
+    end
+    if(isempty(phi))
+        phi = 0;
+    end
 
-    propForce = kT * 1.293 * (n^2) * (D^4);
+    propForce = kP * (n^2);
 
-    forceX = propForce * (cos(phi)*sin(theta) + sin(phi)*cos(theta));
-    forceZ = propForce * (cos(phi)*cos(theta) - sin(phi)*sin(theta));
+    forceX = propForce * sin(theta + phi);
+    forceZ = propForce * cos(theta + phi);
     torque = L * propForce * sin(phi);
 
     block.OutputPort(1).Data = forceX;
     block.OutputPort(2).Data = forceZ;
     block.OutputPort(3).Data = torque;
+end
+
+function block_ins = get_block_ins(block)
+    theta = block.InputPort(1).Data;
+    phi = block.InputPort(2).Data;
+    L = block.InputPort(3).Data;
+    kP = block.InputPort(4).Data;
+    n = block.InputPort(5).Data;
+
+    block_ins = [theta, phi, L, kP, n];
+end
