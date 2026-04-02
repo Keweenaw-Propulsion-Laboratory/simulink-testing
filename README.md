@@ -1,2 +1,2 @@
-# simulink-simple-testing
-A repo for holding the basic simulation testing of the AFC test vehicle dynamics.
+# simulink-testing
+A repo for holding the simulation testing of the AFC test vehicle dynamics.
