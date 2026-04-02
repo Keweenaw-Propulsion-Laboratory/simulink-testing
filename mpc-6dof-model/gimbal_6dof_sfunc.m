@@ -5,7 +5,6 @@ end
 
 function setup(block)
     % input ports:
-    % - body quaternion (q, 1x4 double vector of quat coeffs.)
     % - gimbal pitch (theta, around the x-axis)
     %   denoted phi in the original dynamics paper
     % - gimbal yaw (psi, around the y-axis)
@@ -13,7 +12,7 @@ function setup(block)
     % - gimbal lever arm (L, m)
     % - propeller constant (kP, N/(rev/s)^2)
     % - prop speed (n, rev/s)
-    block.NumInputPorts = 6;
+    block.NumInputPorts = 5;
 
     % output ports:
     % - trans. force vector (fx, fy, fz)
@@ -28,13 +27,8 @@ function setup(block)
     % even though port 1 will be a vector with 4 values, the vals
     % are still doubles
 
-    for i = 1:6
-        input_dimension = [1 4];
-        if(i ~= 1)
-            input_dimension = 1;
-        end
-
-        block.InputPort(i).Dimensions = input_dimension;
+    for i = 1:5
+        block.InputPort(i).Dimensions = 1;
         block.InputPort(i).DatatypeID  = 0;  % double
         block.InputPort(i).Complexity  = 'Real';
     end
@@ -80,16 +74,13 @@ end
 
 % source of eqs: https://www.mathworks.com/help/aeroblks/rotor.html
 function Outputs(block)
-    [body_q, theta, psi, L, kP, n] = get_block_ins(block);
+    [theta, psi, L, kP, n] = get_block_ins(block);
 
     % if no theta -> set to zero
     % if no phi -> zero
-    % if no body_q, L, kP, or n -> error
+    % if no L, kP, or n -> error
 
     % handle no inputs for the needed args
-    if(isempty(body_q))
-        error('Enter a value for the gimbal lever arm (L).')
-    end
     if(isempty(L))
         error('Enter a value for the gimbal lever arm (L).')
     end
@@ -110,8 +101,9 @@ function Outputs(block)
 
 
     prop_force_mag = kP * (n^2);
-    prop_force_direction = quatrotate(body_q, [sin(theta), sin(psi), cos(theta)*cos(psi)]);
-    prop_force = prop_force_mag * prop_force_direction;
+    prop_force_direction = rotx(rad2deg(theta)) * roty(rad2deg(psi)) * [0 0 1]';
+    disp(prop_force_direction');
+    prop_force = prop_force_mag * prop_force_direction';
 
     prop_torque = cross([0, 0, L], prop_force);
 
@@ -121,11 +113,10 @@ function Outputs(block)
     block.OutputPort(2).Data = prop_torque;
 end
 
-function [body_q, theta, psi, L, kP, n] = get_block_ins(block)
-    body_q = block.InputPort(1).Data;
-    theta = block.InputPort(2).Data;
-    psi = block.InputPort(3).Data;
-    L = block.InputPort(4).Data;
-    kP = block.InputPort(5).Data;
-    n = block.InputPort(6).Data;
+function [theta, psi, L, kP, n] = get_block_ins(block)
+    theta = block.InputPort(1).Data;
+    psi = block.InputPort(2).Data;
+    L = block.InputPort(3).Data;
+    kP = block.InputPort(4).Data;
+    n = block.InputPort(5).Data;
 end
