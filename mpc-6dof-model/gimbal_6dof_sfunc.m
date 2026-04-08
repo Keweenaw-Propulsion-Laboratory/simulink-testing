@@ -9,7 +9,7 @@ function setup(block)
     %   denoted phi in the original dynamics paper
     % - gimbal yaw (psi, around the y-axis)
     %   denoted psi in the original dynamics paper (yay)
-    % - gimbal lever arm (L, m)
+    % - gimbal lever arm (L, m) -> TODO: change notation to "R"
     % - propeller constant (kP, N/(rev/s)^2)
     % - prop speed (n, rev/s)
     block.NumInputPorts = 5;
