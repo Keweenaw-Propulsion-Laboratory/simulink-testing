@@ -98,12 +98,8 @@ function Outputs(block)
     if(isempty(psi))
         psi = 0;
     end
-
-
-    prop_force_mag = kP * (n^2);
-    prop_force_direction = rotx(rad2deg(theta)) * roty(rad2deg(psi)) * [0 0 1]';
-    disp(prop_force_direction');
-    prop_force = prop_force_mag * prop_force_direction';
+    
+    prop_force = get_vehicle_body_thrust_vec(kP, n, theta, psi);
 
     prop_torque = cross([0, 0, L], prop_force);
 
@@ -119,4 +115,10 @@ function [theta, psi, L, kP, n] = get_block_ins(block)
     L = block.InputPort(3).Data;
     kP = block.InputPort(4).Data;
     n = block.InputPort(5).Data;
+end
+
+function body_thrust = get_vehicle_body_thrust_vec(kP, n, phi, psi)
+    prop_force_mag = kP * (n^2);
+    prop_force_direction = rotx(rad2deg(phi)) * roty(rad2deg(psi)) * [0 0 1]';
+    body_thrust = prop_force_mag * prop_force_direction';
 end
