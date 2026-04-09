@@ -19,6 +19,11 @@ mpc_obj.Model.StateFcn = @vehicle_state_func;
 
 % omitting the "OutputFcn," as all our states are the outputs
 
+kP = 1;
+body_mass = 0;
+gravitational_const = 9.8;
+inertia_tensor = eye(3);
+lever_arm = 1;
 
 % extra params needed:
 % 1: kP
@@ -57,7 +62,8 @@ function x_dot = vehicle_state_func(x, u, params)
     lever_arm = [0 0 params(5)];
     % "\" operator used to make the inverse multiplication more efficient
     % and accurate (according to a MATLAB tooltip)
-    x_dot(4) = inv(i_tens) \ (cross(lever_arm, body_thrust) - cross(omega, i_tens * omega));
+    % inv(A) * b -> A \ b
+    x_dot(4) = i_tens \ (cross(lever_arm, body_thrust) - cross(omega, i_tens * omega));
 end
 
 function [s, s_dot, q, omega, n, phi, psi] = get_system_props(x, u)
@@ -70,3 +76,6 @@ function [s, s_dot, q, omega, n, phi, psi] = get_system_props(x, u)
     phi = u(2);
     psi = u(3);
 end
+
+
+createParameterBus(mpc_obj, ['root_model' '/Nonlinear MPC Controller'], 'mpc_params_bus', {kP, body_mass, gravitational_const, inertia_tensor, lever_arm});
