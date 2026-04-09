@@ -14,8 +14,8 @@
 
 mpc_obj = nlmpc(4, 4, 3);
 
-mpc_obj.NumberOfParameters = 5; % specified below
-mpc_obj.StateFcn = @vehicle_state_func;
+mpc_obj.Model.NumberOfParameters = 5; % specified below
+mpc_obj.Model.StateFcn = @vehicle_state_func;
 
 % omitting the "OutputFcn," as all our states are the outputs
 
@@ -26,7 +26,7 @@ mpc_obj.StateFcn = @vehicle_state_func;
 % 3: gravitational_const
 % 4: intertia_tensor
 % 5: lever_arm
-% TODO: figure out how this gets passed into the MPC controller
+% Note, these are provided by the Simulink model
 function x_dot = vehicle_state_func(x, u, params)
     [~, s_dot, q, omega, n, phi, psi] = get_system_props(x, u);
 
@@ -54,9 +54,10 @@ function x_dot = vehicle_state_func(x, u, params)
     % the gimbal's forces on the body (distance from thrust to CoM)
     % note, the "R x Tb" term is just the body torque
     i_tens = params(4);
+    lever_arm = [0 0 params(5)];
     % "\" operator used to make the inverse multiplication more efficient
     % and accurate (according to a MATLAB tooltip)
-    x_dot(4) = inv(i_tens) \ (cross(params(5), body_thrust) - cross(omega, i_tens * omega));
+    x_dot(4) = inv(i_tens) \ (cross(lever_arm, body_thrust) - cross(omega, i_tens * omega));
 end
 
 function [s, s_dot, q, omega, n, phi, psi] = get_system_props(x, u)
