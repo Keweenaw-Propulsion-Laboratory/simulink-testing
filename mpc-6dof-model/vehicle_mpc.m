@@ -20,9 +20,33 @@ mpc_obj = nlmpc(13, 13, 3);
 mpc_obj.Model.NumberOfParameters = 5; % specified below
 mpc_obj.Model.StateFcn = @vehicle_state_func;
 
+% all constraints are row vectors
+% values are based on the AFC drone spec sheet
+
+mpc_obj.Optimization.CustomIneqConFcn  = @vehicle_input_constraint;
+% based on 0 <= n <= 167 RPS
+% -20 <= phi <= 20 degrees
+% -20 <= psi <= 20 degrees
+function ineq_constraint = vehicle_input_constraint(~, u, ~, ~, ~, ~, ~, ~, ~)
+    deg_conv = deg2rad(20);
+    ineq_constraint = [u(1) - 167; -u(1); u(2) - deg_conv; -u(2) - deg_conv; u(3) - deg_conv; -u(3) - deg_conv];
+end
+
+% alternate method of setting mins and maxes: did not work initially
+% mpc_obj.ManipulatedVariables(1).Min = 0;
+% mpc_obj.ManipulatedVariables(2).Min = deg2rad(-20);
+% mpc_obj.ManipulatedVariables(3).Min = deg2rad(-20);
+% mpc_obj.ManipulatedVariables(1).Max = 167;
+% mpc_obj.ManipulatedVariables(2).Max = deg2rad(20);
+% mpc_obj.ManipulatedVariables(3).Max = deg2rad(20);
+
+
 % omitting the "OutputFcn," as all our states are the outputs
 
 % default values for params (all zero)
+% note, these variables (I believe) are completely ignored in the context
+% of this file. These are purely for assignment in the "createParameterBus"
+% func
 [kP, body_mass, gravity_accel, lever_arm] = deal(0);
 inertia_tensor = zeros(3, 3);
 
@@ -37,8 +61,9 @@ inertia_tensor = zeros(3, 3);
 % Note, these are provided by the Simulink model
 % parameter values setting global variables
 % TODO: verify
-function x_dot = vehicle_state_func(x, u)
+function x_dot = vehicle_state_func(x, u, kP, body_mass, gravity_accel, inertia_tensor, lever_arm)
     [~, s_dot, q, omega, n, phi, psi] = get_system_props(x, u);
+    display(get_system_props(x, u))
 
     % quaternion object for the quaternion coefficients
     body_quat = quaternion(q);
@@ -115,4 +140,16 @@ function [s, s_dot, q, omega, n, phi, psi] = get_system_props(x, u)
 end
 
 
+% copied from the gimbal_6dof_sfunc file
+% would like to remove duplication
+function body_thrust = get_vehicle_body_thrust_vec(kP, n, phi, psi)
+    prop_force_mag = kP * (n^2);
+    prop_force_direction = rotx(rad2deg(phi)) * roty(rad2deg(psi)) * [0; 0; 1];
+    body_thrust = prop_force_mag * prop_force_direction; % keep as column
+end
+
 createParameterBus(mpc_obj, ['root_model' '/Nonlinear MPC Controller'], 'mpc_params_bus', {kP, body_mass, gravity_accel, inertia_tensor, lever_arm});
+
+x0 = zeros(1,13);
+u0 = zeros(1,3); 
+% validateFcns(mpc_obj,x0,u0, [], {kP, body_mass, gravity_accel, inertia_tensor, lever_arm});

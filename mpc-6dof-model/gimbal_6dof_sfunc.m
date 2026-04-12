@@ -105,8 +105,9 @@ function Outputs(block)
 
     disp(prop_torque);
 
-    block.OutputPort(1).Data = prop_force;
-    block.OutputPort(2).Data = prop_torque;
+    % convert both back to row vectors
+    block.OutputPort(1).Data = prop_force';
+    block.OutputPort(2).Data = prop_torque';
 end
 
 function [theta, psi, L, kP, n] = get_block_ins(block)
