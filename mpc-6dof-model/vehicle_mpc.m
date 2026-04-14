@@ -48,7 +48,7 @@ end
 % of this file. These are purely for assignment in the "createParameterBus"
 % func
 [kP, body_mass, gravity_accel, lever_arm] = deal(1);
-inertia_tensor = zeros(3, 3);
+inertia_tensor = eye(3);
 
 % TODO: move all states to be in a single column vector
 
@@ -63,7 +63,6 @@ inertia_tensor = zeros(3, 3);
 % TODO: verify
 function x_dot = vehicle_state_func(x, u, kP, body_mass, gravity_accel, inertia_tensor, lever_arm)
     [~, s_dot, q, omega, n, phi, psi] = get_system_props(x, u);
-    display(get_system_props(x, u))
 
     % quaternion object for the quaternion coefficients
     body_quat = quaternion(q);
@@ -82,7 +81,8 @@ function x_dot = vehicle_state_func(x, u, kP, body_mass, gravity_accel, inertia_
     % quaternion time derivative
     % from notes: q_dot = 0.5 q (x) omega
     % converts back to the 4 quaternion coefficients
-    quat_dot = parts(0.5 * (body_quat * omega));
+    omega_quat_conv = quaternion(omega(1), omega(2), omega(3), 0);
+    [q_dot_1, q_dot_2, q_dot_3, q_dot_4] = parts(0.5 * mtimes(body_quat, omega_quat_conv));
 
     % rotational accel
     % using Euler's equations of rigid body rotations
@@ -103,15 +103,15 @@ function x_dot = vehicle_state_func(x, u, kP, body_mass, gravity_accel, inertia_
         x_dot(i + 3) = accel(i);
         x_dot(i + 10) = rot_accel(i);
     end
-
-    for j = 1:4
-        x_dot(j + 6) = quat_dot(j);
-    end
     
-    disp(q)
-    disp(earth_thrust)
-    disp(accel)
-    disp(x_dot)
+    % I hate this, but it is what it is
+    x_dot(7) = q_dot_1;
+    x_dot(8) = q_dot_2;
+    x_dot(9) = q_dot_3;
+    x_dot(10) = q_dot_4;
+    % for j = 1:4
+    %     x_dot(j + 6) = quat_dot(j);
+    % end
 end
 
 % states (all scalars):
