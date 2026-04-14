@@ -23,22 +23,22 @@ mpc_obj.Model.StateFcn = @vehicle_state_func;
 % all constraints are row vectors
 % values are based on the AFC drone spec sheet
 
-mpc_obj.Optimization.CustomIneqConFcn  = @vehicle_input_constraint;
+% mpc_obj.Optimization.CustomIneqConFcn  = @vehicle_input_constraint;
 % based on 0 <= n <= 167 RPS
 % -20 <= phi <= 20 degrees
 % -20 <= psi <= 20 degrees
-function ineq_constraint = vehicle_input_constraint(~, u, ~, ~, ~, ~, ~, ~, ~)
-    deg_conv = deg2rad(20);
-    ineq_constraint = [u(1) - 167; -u(1); u(2) - deg_conv; -u(2) - deg_conv; u(3) - deg_conv; -u(3) - deg_conv];
-end
+% function ineq_constraint = vehicle_input_constraint(~, u, ~, ~, ~, ~, ~, ~, ~)
+%     deg_conv = deg2rad(20);
+%     ineq_constraint = [u(1) - 167; -u(1); u(2) - deg_conv; -u(2) - deg_conv; u(3) - deg_conv; -u(3) - deg_conv];
+% end
 
 % alternate method of setting mins and maxes: did not work initially
-% mpc_obj.ManipulatedVariables(1).Min = 0;
-% mpc_obj.ManipulatedVariables(2).Min = deg2rad(-20);
-% mpc_obj.ManipulatedVariables(3).Min = deg2rad(-20);
-% mpc_obj.ManipulatedVariables(1).Max = 167;
-% mpc_obj.ManipulatedVariables(2).Max = deg2rad(20);
-% mpc_obj.ManipulatedVariables(3).Max = deg2rad(20);
+mpc_obj.ManipulatedVariables(1).Min = 0;
+mpc_obj.ManipulatedVariables(2).Min = deg2rad(-20);
+mpc_obj.ManipulatedVariables(3).Min = deg2rad(-20);
+mpc_obj.ManipulatedVariables(1).Max = 167;
+mpc_obj.ManipulatedVariables(2).Max = deg2rad(20);
+mpc_obj.ManipulatedVariables(3).Max = deg2rad(20);
 
 
 % omitting the "OutputFcn," as all our states are the outputs
