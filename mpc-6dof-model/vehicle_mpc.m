@@ -20,6 +20,16 @@ mpc_obj = nlmpc(13, 13, 3);
 mpc_obj.Model.NumberOfParameters = 5; % specified below
 mpc_obj.Model.StateFcn = @vehicle_state_func;
 
+% TESTING
+% arbitrary weight values
+% prioritize position and keep the others stable
+mpc_obj.Weights.OutputVariables = [1 1 1, 0.1 0.1 0.1, 0 0 0 0, 0.1 0.1 0.1];
+
+% MV Weights: Don't penalize RPS too hard (or it won't fight gravity)
+% penalize MV Rate to prevent the gimbal from vibrating (jitter)
+mpc_obj.Weights.ManipulatedVariables = [0.1, 0.1, 0.1]; 
+mpc_obj.Weights.ManipulatedVariablesRate = [0.1, 0.5, 0.5];
+
 % all constraints are row vectors
 % values are based on the AFC drone spec sheet
 
