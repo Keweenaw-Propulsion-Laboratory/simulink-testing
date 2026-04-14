@@ -47,7 +47,7 @@ end
 % note, these variables (I believe) are completely ignored in the context
 % of this file. These are purely for assignment in the "createParameterBus"
 % func
-[kP, body_mass, gravity_accel, lever_arm] = deal(0);
+[kP, body_mass, gravity_accel, lever_arm] = deal(1);
 inertia_tensor = zeros(3, 3);
 
 % TODO: move all states to be in a single column vector
@@ -79,9 +79,6 @@ function x_dot = vehicle_state_func(x, u, kP, body_mass, gravity_accel, inertia_
     % accel -> based only on the thrust of the gimbal
     accel = ((1/body_mass) * earth_thrust) - [0; 0; gravity_accel];
 
-    % for verifying the passing of arguments (TODO: remove after)
-    display(body_mass);
-
     % quaternion time derivative
     % from notes: q_dot = 0.5 q (x) omega
     % converts back to the 4 quaternion coefficients
@@ -108,8 +105,13 @@ function x_dot = vehicle_state_func(x, u, kP, body_mass, gravity_accel, inertia_
     end
 
     for j = 1:4
-        x_dot(i + 6) = quat_dot(i);
+        x_dot(j + 6) = quat_dot(j);
     end
+    
+    disp(q)
+    disp(earth_thrust)
+    disp(accel)
+    disp(x_dot)
 end
 
 % states (all scalars):
@@ -117,6 +119,8 @@ end
 % 4-6: v(xyz)
 % 7-10: q coeffs
 % 11-13: omega(xyz)
+% TODO: fix NaN values potentially being thrown to other functions
+% note, this may be caused by bad formatting of returned data
 function [s, s_dot, q, omega, n, phi, psi] = get_system_props(x, u)
     % set all the 4 element vectors to 3x1 zero vecs
     [s, s_dot, omega] = deal(zeros(3, 1));
@@ -129,8 +133,10 @@ function [s, s_dot, q, omega, n, phi, psi] = get_system_props(x, u)
         omega(i) = x(i + 10);
     end
 
+    % disp(s_dot);
+
     for j = 1:4
-        q(i) = x(i + 6);
+        q(j) = x(j + 6);
     end
     
     % inputs are all scalars
@@ -151,5 +157,6 @@ end
 createParameterBus(mpc_obj, ['root_model' '/Nonlinear MPC Controller'], 'mpc_params_bus', {kP, body_mass, gravity_accel, inertia_tensor, lever_arm});
 
 x0 = zeros(1,13);
+x0(1, 10) = 1;
 u0 = zeros(1,3); 
-% validateFcns(mpc_obj,x0,u0, [], {kP, body_mass, gravity_accel, inertia_tensor, lever_arm});
+validateFcns(mpc_obj,x0,u0, [], {kP, body_mass, gravity_accel, inertia_tensor, lever_arm});
