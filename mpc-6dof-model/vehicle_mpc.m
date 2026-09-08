@@ -79,7 +79,7 @@ function x_dot = vehicle_state_func(x, u, kP, body_mass, gravity_accel, inertia_
 
     % referenced from the vehicle gimbal sfunc
     body_thrust = get_vehicle_body_thrust_vec(kP, n, phi, psi);
-    earth_thrust = quatrotate(q, body_thrust')'; % need row vec input for TB
+    earth_thrust = rotatepoint(body_quat, body_thrust')'; % need row vec input for TB
     % converted back to a column vec after operation
 
     % velocity, passed through
@@ -91,7 +91,7 @@ function x_dot = vehicle_state_func(x, u, kP, body_mass, gravity_accel, inertia_
     % quaternion time derivative
     % from notes: q_dot = 0.5 q (x) omega
     % converts back to the 4 quaternion coefficients
-    omega_quat_conv = quaternion(omega(1), omega(2), omega(3), 0);
+    omega_quat_conv = quaternion(0, omega(1), omega(2), omega(3));
     [q_dot_1, q_dot_2, q_dot_3, q_dot_4] = parts(0.5 * mtimes(body_quat, omega_quat_conv));
 
     % rotational accel
@@ -142,8 +142,6 @@ function [s, s_dot, q, omega, n, phi, psi] = get_system_props(x, u)
         s_dot(i) = x(i + 3);
         omega(i) = x(i + 10);
     end
-
-    % disp(s_dot);
 
     for j = 1:4
         q(j) = x(j + 6);

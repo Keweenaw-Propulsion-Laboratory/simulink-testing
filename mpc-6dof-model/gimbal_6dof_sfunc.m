@@ -103,7 +103,7 @@ function Outputs(block)
 
     prop_torque = cross([0; 0; L], prop_force);
 
-    disp(prop_torque);
+    % disp(prop_torque);
 
     % convert both back to row vectors
     block.OutputPort(1).Data = prop_force';
