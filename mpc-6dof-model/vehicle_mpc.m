@@ -23,7 +23,7 @@ mpc_obj.Model.StateFcn = @vehicle_state_func;
 % TESTING
 % arbitrary weight values
 % prioritize position and keep the others stable
-mpc_obj.Weights.OutputVariables = [1 1 1, 0.1 0.1 0.1, 0 0 0 0, 0.1 0.1 0.1];
+mpc_obj.Weights.OutputVariables = [1, 1, 1, 0.1, 0.1, 0.1, 0, 0, 0, 0, 0.1, 0.1, 0.1];
 
 % MV Weights: Don't penalize RPS too hard (or it won't fight gravity)
 % penalize MV Rate to prevent the gimbal from vibrating (jitter)
