@@ -15,7 +15,7 @@ function x_hat = ekf_transition_func(x, extra_in)
     k_3 = vehicle_state_func(x + k_2 * Ts/2, u, kP, body_mass, gravity_accel, inertia_tensor, lever_arm);
     k_4 = vehicle_state_func(x + k_3 * Ts, u, kP, body_mass, gravity_accel, inertia_tensor, lever_arm);
 
-    x_hat = zeros(17, 1);
+    x_hat = x;
 
     x_hat_determ = x + (Ts/6) * (k_1 + 2 * k_2 + 2 * k_3 + k_4);
     
