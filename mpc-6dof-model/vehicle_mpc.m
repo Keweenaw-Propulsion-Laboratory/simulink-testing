@@ -66,11 +66,6 @@ inertia_tensor = eye(3);
 
 % TODO: move all states to be in a single column vector
 
-
-function y = vehicle_output_func(x, u, kP, body_mass, gravity_accel, inertia_tensor, lever_arm)
-    y = x(1:13);
-end
-
 createParameterBus(mpc_obj, ['root_model' '/Nonlinear MPC Controller'], 'mpc_params_bus', {kP, body_mass, gravity_accel, inertia_tensor, lever_arm});
 
 x0 = zeros(1,17);
