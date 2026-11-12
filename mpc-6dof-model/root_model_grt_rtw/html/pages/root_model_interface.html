@@ -131,16 +131,16 @@ External code initiates execution of the generated code by calling entry-point f
 <p>
 Initialize entry-point functions implement startup behavior. In a model, Initialize Function blocks represent startup behavior explicitly.
 </p>
-<div id="fcn_root_model_initialize">
+<div id="fcn_initialize">
 <h4 class="function">
-root_model_initialize
+initialize
 </h4>
 <span class="description">
 Initialization entry point of generated code
 </span>
 <div class="programlisting">
 <code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'root_model.h'})" class="include">root_model.h</a>"</span>
-void <a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'root_model_initialize'})" class="fcn">root_model_initialize</a>(void)</code>
+void <a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'initialize'})" class="fcn">initialize</a>(void)</code>
 </div>
 </div>
 </section>
@@ -151,16 +151,16 @@ void <a href="javascript: void(0)" onclick="postParentWindowMessage({message:'ju
 <p>
 Terminate entry-point functions implement shutdown behavior. In a model, Terminate Function blocks represent shutdown behavior explicitly.
 </p>
-<div id="fcn_root_model_terminate">
+<div id="fcn_terminate">
 <h4 class="function">
-root_model_terminate
+terminate
 </h4>
 <span class="description">
 Termination entry point of generated code
 </span>
 <div class="programlisting">
 <code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'root_model.h'})" class="include">root_model.h</a>"</span>
-void <a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'root_model_terminate'})" class="fcn">root_model_terminate</a>(void)</code>
+void <a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'terminate'})" class="fcn">terminate</a>(void)</code>
 </div>
 </div>
 </section>
@@ -171,16 +171,16 @@ void <a href="javascript: void(0)" onclick="postParentWindowMessage({message:'ju
 <p>
 Periodic entry-point functions implement model behavior that occurs at a fixed sampling rate. For a rate-based model, the code generator produces a periodic entry-point function for each rate used in the model. In a function-call (export-function) model, Function Call Subsystem blocks that specify a sampling rate represent periodic functions.
 </p>
-<div id="fcn_root_model_step">
+<div id="fcn_step">
 <h4 class="function">
-root_model_step
+step
 </h4>
 <span class="description">
 Output entry point of generated code. Must be called periodically, every 1 seconds. 
 </span>
 <div class="programlisting">
 <code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'root_model.h'})" class="include">root_model.h</a>"</span>
-void <a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'root_model_step'})" class="fcn">root_model_step</a>(void)</code>
+void <a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'step'})" class="fcn">step</a>(void)</code>
 </div>
 </div>
 <div id="fcn_ekf_t_func">
@@ -191,7 +191,7 @@ ekf_t_func
 Output entry point of generated code. Must be called periodically, every 1 seconds. 
 </span>
 <div class="programlisting">
-<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'ekf_t_func.h'})" class="include">ekf_t_func.h</a>"</span>
+<code class="usage"><span class="include">#include "<a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'root_model.h'})" class="include">root_model.h</a>"</span>
 void <a href="javascript: void(0)" onclick="postParentWindowMessage({message:'jumpToCode',location:'ekf_t_func'})" class="fcn">ekf_t_func</a>(const real_T rtu_x[17], real_T rty_x_hat[17])</code>
 </div>
 </div>

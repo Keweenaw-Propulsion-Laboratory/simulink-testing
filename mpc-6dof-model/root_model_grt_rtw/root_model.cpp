@@ -7,9 +7,9 @@
  *
  * Code generation for model "root_model".
  *
- * Model version              : 1.97
+ * Model version              : 1.99
  * Simulink Coder version : 25.2 (R2025b) 28-Jul-2025
- * C++ source code generated on : Wed Nov 11 21:42:07 2026
+ * C++ source code generated on : Thu Nov 12 13:53:48 2026
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -23,412 +23,21 @@
 #include "root_model_types.h"
 #include <cstring>
 #include <emmintrin.h>
+#include "sind_CjVy6Jw4.h"
+#include "cosd_ZK11uGDT.h"
 #include <cmath>
 #include "rt_assert.h"
 #include "getXUe_FXX9Wcuz.h"
-#include "sind_CjVy6Jw4.h"
-#include "cosd_ZK11uGDT.h"
-#include "root_model_private.h"
 #include "rt_hypotd_snf.h"
 #include "isfinite_l3no8sDX.h"
 #include "all_Dt0A7QFv.h"
 #include "checkVectorNonFinite_yVQywJ02.h"
 #include "xrotg_FR4eOElQ.h"
+#include "root_model_private.h"
 #include "div_nde_s32_floor.h"
-#include "cmath"
-#include "ekf_t_func.h"
-#include "ekf_t_func_private.h"
-
-/* Block signals (default storage) */
-B_root_model_T root_model_B;
-
-/* Continuous states */
-X_root_model_T root_model_X;
-
-/* Disabled State Vector */
-XDis_root_model_T root_model_XDis;
-
-/* Block states (default storage) */
-DW_root_model_T root_model_DW;
-
-/* Real-time model */
-RT_MODEL_root_model_T root_model_M_{ };
-
-RT_MODEL_root_model_T *const root_model_M{ &root_model_M_ };
-
-/* Forward declaration for local functions */
-static real_T root_model_xnrm2(int32_T n, const real_T x[390], int32_T ix0);
-static void root_model_qrFactor(const real_T A[221], const real_T S[289], const
-  real_T Ns[169], real_T b_S[169]);
-static void root_model_trisolve(const real_T A[169], real_T B[221]);
-static void root_model_trisolve_l(const real_T A[169], real_T B[221]);
-static real_T root_model_xnrm2_l(int32_T n, const real_T x[510], int32_T ix0);
-static void root_model_qrFactor_l(const real_T A[289], const real_T S[289],
-  const real_T Ns[221], real_T b_S[289]);
-static void root_model_getUBounds(const real_T runtimedata_lastMV[3], const
-  real_T runtimedata_MVMin[30], const real_T runtimedata_MVMax[30], const real_T
-  runtimedata_MVRateMin[30], const real_T runtimedata_MVRateMax[30], real_T
-  A_data[], int32_T A_size[2], real_T Bu_data[], int32_T Bu_size[1]);
-static void root_model_computeJacobianState(real_T parameters_f1, real_T
-  parameters_f2, real_T parameters_f3, const real_T parameters_f4[9], real_T
-  parameters_f5, const real_T f0[17], real_T x0[17], real_T u0[3], real_T Jx[289],
-  real_T Jmv[51]);
-static void root_model_stateEvolution(const real_T X[187], const real_T U[33],
-  real_T parameters_f1, real_T parameters_f2, real_T parameters_f3, const real_T
-  parameters_f4[9], real_T parameters_f5, real_T c[170], real_T J[30090]);
-static boolean_T root_model_any(const boolean_T x[26]);
-static void root_model_reformJacobian(const real_T Jx_data[], const int32_T
-  Jx_size[3], const real_T Jmv_data[], const real_T Je_data[], const int32_T
-  Je_size[1], real_T Jc_data[], int32_T Jc_size[2]);
-static void root_model_outputBounds(const real_T runtimedata_OutputMin[130],
-  const real_T runtimedata_OutputMax[130], const real_T X[187], real_T e, real_T
-  c_data[], int32_T c_size[2], real_T Jc_data[], int32_T Jc_size[2]);
-static void root_model_c4_mpclib_anonFcn2(const real_T runtimedata_x[17], const
-  real_T runtimedata_OutputMin[130], const real_T runtimedata_OutputMax[130],
-  real_T runtimedata_Parameters_f1, real_T runtimedata_Parameters_f2, real_T
-  runtimedata_Parameters_f3, const real_T runtimedata_Parameters_f4[9], real_T
-  runtimedata_Parameters_f5, const real_T z[177], real_T varargout_1_data[],
-  int32_T varargout_1_size[2], real_T varargout_2[170], real_T varargout_3_data[],
-  int32_T varargout_3_size[2], real_T varargout_4[30090]);
-static void root_model_factoryConstruct(int32_T nVarMax, int32_T mConstrMax,
-  int32_T mIneq, int32_T mNonlinIneq, s_7iu1rzNoAoHigERqeOFm2G_root_T *obj);
-static void root_mode_factoryConstruct_n0cp(int32_T MaxVars, int32_T
-  obj_grad_size[1], int32_T obj_Hx_size[1], boolean_T *obj_hasLinear, int32_T
-  *obj_nvar, int32_T *obj_maxVar, real_T *obj_beta, real_T *obj_rho, int32_T
-  *obj_objtype, int32_T *obj_prev_objtype, int32_T *obj_prev_nvar, boolean_T
-  *obj_prev_hasLinear, real_T *obj_gammaScalar);
-static void root_mod_factoryConstruct_n0cp3(int32_T mIneqMax, int32_T nVarMax,
-  int32_T mConstrMax, s_Jrk1gF3jitJmkPBgphEknE_root_T *obj);
-static void computeObjectiveAndUserGradient(const
-  s_pVH6DktXFODPXN9VaZK2hE_root_T *obj_next_next_next_next_next_ne, const real_T
-  x[177], real_T grad_workspace_data[], real_T *fval, int32_T *status);
-static int32_T root_model_checkVectorNonFinite(int32_T N, const real_T vec_data[],
-  int32_T iv0);
-static int32_T computeConstraintsAndUserJacobi(int32_T
-  obj_next_next_next_next_next_b_, const s_WBLIzjzqQS4bg0a8DMrwYD_root_T
-  *obj_next_next_next_next_next_ne, const real_T x[177], real_T
-  Cineq_workspace_data[], int32_T ineq0, real_T Ceq_workspace[170], real_T
-  JacIneqTrans_workspace_data[], int32_T iJI_col, int32_T ldJI, real_T
-  JacEqTrans_workspace_data[], int32_T ldJE);
-static void evalObjAndConstrAndDerivatives(int32_T
-  obj_next_next_next_next_next_b_, const s_WBLIzjzqQS4bg0a8DMrwYD_root_T
-  *obj_next_next_next_next_next_ne, const s_pVH6DktXFODPXN9VaZK2hE_root_T
-  *obj_next_next_next_next_next__0, const real_T x[177], real_T
-  grad_workspace_data[], real_T Cineq_workspace_data[], int32_T ineq0, real_T
-  Ceq_workspace[170], real_T JacIneqTrans_workspace_data[], int32_T iJI_col,
-  int32_T ldJI, real_T JacEqTrans_workspace_data[], int32_T ldJE, real_T *fval,
-  int32_T *status);
-static void root_mo_modifyOverheadPhaseOne_(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj);
-static void root_model_setProblemType(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj,
-  int32_T PROBLEM_TYPE);
-static void root_model_initActiveSet(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj);
-static void root_model_factoryConstruct_n0(int32_T maxRows, int32_T maxCols,
-  int32_T *obj_ldq, int32_T obj_QR_size[2], real_T obj_Q_data[], int32_T
-  obj_Q_size[2], int32_T obj_jpvt_data[], int32_T obj_jpvt_size[1], int32_T
-  *obj_mrows, int32_T *obj_ncols, int32_T obj_tau_size[1], int32_T
-  *obj_minRowCol, boolean_T *obj_usedPivoting);
-static void root_model_factoryConstruct_n0c(int32_T MaxDims, int32_T
-  obj_FMat_size[2], int32_T *obj_ldm, int32_T *obj_ndims, int32_T *obj_info,
-  real_T *obj_scaleFactor, boolean_T *obj_ConvexCheck, real_T *obj_regTol_,
-  real_T *obj_workspace_, real_T *obj_workspace2_);
-static void root_model_computeGradLag(real_T workspace_data[], int32_T ldA,
-  int32_T nVar, const real_T grad_data[], int32_T mIneq, const real_T
-  AineqTrans_data[], const real_T AeqTrans_data[], const int32_T
-  finiteFixed_data[], int32_T mFixed, const int32_T finiteLB_data[], int32_T mLB,
-  const int32_T finiteUB_data[], int32_T mUB, const real_T lambda_data[]);
-static real_T root_mod_computePrimalFeasError(const real_T x[177], int32_T
-  mLinIneq, int32_T mNonlinIneq, const real_T cIneq_data[], const real_T cEq[170],
-  const int32_T finiteLB_data[], int32_T mLB, const real_T lb[177], const
-  int32_T finiteUB_data[], int32_T mUB);
-static void root_model_computeDualFeasError(int32_T nVar, const real_T
-  gradLag_data[], boolean_T *gradOK, real_T *val);
-static void root_model_test_exit(sG8JZ69axY52WWR6RKyApQC_root__T *MeritFunction,
-  const s_Jrk1gF3jitJmkPBgphEknE_root_T *WorkingSet,
-  s_7iu1rzNoAoHigERqeOFm2G_root_T *TrialState, const real_T lb[177], boolean_T
-  *Flags_gradOK, boolean_T *Flags_fevalOK, boolean_T *Flags_done, boolean_T
-  *Flags_stepAccepted, boolean_T *Flags_failedLineSearch, int32_T
-  *Flags_stepType);
-static void root_model_saveJacobian(s_7iu1rzNoAoHigERqeOFm2G_root_T *obj,
-  int32_T nVar, int32_T mIneq, const real_T JacCineqTrans_data[], int32_T
-  ineqCol0, const real_T JacCeqTrans_data[], int32_T ldJ);
-static real_T root_model_computeComplError(const int32_T
-  fscales_lineq_constraint_size[1], const int32_T fscales_cineq_constraint_size
-  [1], const real_T xCurrent[177], int32_T mIneq, const real_T cIneq_data[],
-  const int32_T finiteLB_data[], int32_T mLB, const real_T lb[177], const
-  int32_T finiteUB_data[], int32_T mUB, const real_T lambda_data[], int32_T iL0);
-static void root_model_computeGradLag_h(real_T workspace_data[], int32_T ldA,
-  int32_T nVar, const real_T grad_data[], int32_T mIneq, const real_T
-  AineqTrans_data[], const real_T AeqTrans_data[], const int32_T
-  finiteFixed_data[], int32_T mFixed, const int32_T finiteLB_data[], int32_T mLB,
-  const int32_T finiteUB_data[], int32_T mUB, const real_T lambda_data[]);
-static void root_mod_computeDualFeasError_k(int32_T nVar, const real_T
-  gradLag_data[], boolean_T *gradOK, real_T *val);
-static void root_m_updateWorkingSetForNewQP(const real_T xk[177],
-  s_Jrk1gF3jitJmkPBgphEknE_root_T *WorkingSet, int32_T mIneq, int32_T
-  mNonlinIneq, const real_T cIneq_data[], const real_T cEq[170], int32_T mLB,
-  const real_T lb[177], int32_T mUB, int32_T mFixed);
-static void root_model_xswap(int32_T n, real_T x_data[], int32_T ix0, int32_T
-  iy0);
-static real_T root_model_xnrm2_o(int32_T n, const real_T x_data[], int32_T ix0);
-static real_T root_model_xzlarfg(int32_T n, real_T *alpha1, real_T x_data[],
-  int32_T ix0);
-static void root_model_xgemv(int32_T m, int32_T n, const real_T A_data[],
-  int32_T ia0, int32_T lda, const real_T x_data[], int32_T ix0, real_T y_data[]);
-static void root_model_xgerc(int32_T m, int32_T n, real_T alpha1, int32_T ix0,
-  const real_T y_data[], real_T A_data[], int32_T ia0, int32_T lda);
-static void root_model_xzlarf(int32_T m, int32_T n, int32_T iv0, real_T tau,
-  real_T C_data[], int32_T ic0, int32_T ldc, real_T work_data[]);
-static void root_model_qrf(real_T A_data[], const int32_T A_size[2], int32_T m,
-  int32_T n, int32_T nfxd, real_T tau_data[]);
-static void root_model_qrpf(real_T A_data[], const int32_T A_size[2], int32_T m,
-  int32_T n, int32_T nfxd, real_T tau_data[], int32_T jpvt_data[]);
-static void root_model_xgeqp3(real_T A_data[], const int32_T A_size[2], int32_T
-  m, int32_T n, int32_T jpvt_data[], real_T tau_data[], int32_T tau_size[1]);
-static void root_model_factorQRE(s_Pct27jAhkqchx6iRs2zKpD_root_T *obj, const
-  real_T A_data[], int32_T mrows, int32_T ncols, int32_T ldA);
-static void root_model_xorgqr(int32_T m, int32_T n, int32_T k, real_T A_data[],
-  const int32_T A_size[2], int32_T lda, const real_T tau_data[]);
-static void root_model_sortLambdaQP(real_T lambda_data[], int32_T
-  WorkingSet_nActiveConstr, const int32_T WorkingSet_sizes[5], const int32_T
-  WorkingSet_isActiveIdx[6], const int32_T WorkingSet_Wid_data[], const int32_T
-  WorkingSet_Wlocalidx_data[], real_T workspace_data[]);
-static void root_model_test_exit_n(s7RdrPWkr8UPAUyTdDJkLaG_root__T *Flags,
-  s_3DDm1jFKx2gyv5YUdHGqJC_root_T *memspace, sG8JZ69axY52WWR6RKyApQC_root__T
-  *MeritFunction, const int32_T fscales_lineq_constraint_size[1], const int32_T
-  fscales_cineq_constraint_size[1], s_Jrk1gF3jitJmkPBgphEknE_root_T *WorkingSet,
-  s_7iu1rzNoAoHigERqeOFm2G_root_T *TrialState, s_Pct27jAhkqchx6iRs2zKpD_root_T
-  *QRManager, const real_T lb[177]);
-static boolean_T root_model_BFGSUpdate(int32_T nvar, real_T Bk[31329], const
-  real_T sk_data[], real_T yk_data[], real_T workspace_data[]);
-static void root_model_factorQRE_h(s_Pct27jAhkqchx6iRs2zKpD_root_T *obj, int32_T
-  mrows, int32_T ncols);
-static void root_model_countsort(int32_T x_data[], int32_T xLen, int32_T
-  workspace_data[], int32_T xMin, int32_T xMax);
-static void root_model_removeConstr(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj,
-  int32_T idx_global);
-static int32_T root_model_RemoveDependentEq_(s_3DDm1jFKx2gyv5YUdHGqJC_root_T
-  *memspace, s_Jrk1gF3jitJmkPBgphEknE_root_T *workingset,
-  s_Pct27jAhkqchx6iRs2zKpD_root_T *qrmanager);
-static void root_model_RemoveDependentIneq_(s_Jrk1gF3jitJmkPBgphEknE_root_T
-  *workingset, s_Pct27jAhkqchx6iRs2zKpD_root_T *qrmanager,
-  s_3DDm1jFKx2gyv5YUdHGqJC_root_T *memspace);
-static int32_T root_model_rank(const real_T qrmanager_QR_data[], const int32_T
-  qrmanager_QR_size[2], int32_T qrmanager_mrows, int32_T qrmanager_ncols);
-static void root_model_xgemv_i(int32_T m, int32_T n, const real_T A_data[],
-  int32_T lda, const real_T x_data[], real_T y_data[]);
-static real_T root_m_maxConstraintViolation_i(s_Jrk1gF3jitJmkPBgphEknE_root_T
-  *obj, const real_T x_data[]);
-static void root_model_xgemv_it(int32_T m, int32_T n, const real_T A_data[],
-  int32_T lda, const real_T x_data[], int32_T ix0, real_T y_data[]);
-static real_T root__maxConstraintViolation_i0(s_Jrk1gF3jitJmkPBgphEknE_root_T
-  *obj, const real_T x_data[], int32_T ix0);
-static boolean_T root_mo_feasibleX0ForWorkingSet(real_T workspace_data[], const
-  int32_T workspace_size[2], real_T xCurrent_data[],
-  s_Jrk1gF3jitJmkPBgphEknE_root_T *workingset, s_Pct27jAhkqchx6iRs2zKpD_root_T
-  *qrmanager);
-static void root_mod_RemoveDependentIneq__h(s_Jrk1gF3jitJmkPBgphEknE_root_T
-  *workingset, s_Pct27jAhkqchx6iRs2zKpD_root_T *qrmanager,
-  s_3DDm1jFKx2gyv5YUdHGqJC_root_T *memspace);
-static void root_model_xgemv_it3(int32_T m, int32_T n, const real_T A_data[],
-  int32_T lda, const real_T x_data[], real_T y_data[]);
-static real_T maxConstraintViolation_AMats_no(s_Jrk1gF3jitJmkPBgphEknE_root_T
-  *obj, const real_T x_data[]);
-static real_T maxConstraintViolation_AMats_re(s_Jrk1gF3jitJmkPBgphEknE_root_T
-  *obj, const real_T x_data[]);
-static real_T root_maxConstraintViolation_i0u(s_Jrk1gF3jitJmkPBgphEknE_root_T
-  *obj, const real_T x_data[]);
-static void root_model_PresolveWorkingSet(s_7iu1rzNoAoHigERqeOFm2G_root_T
-  *solution, s_3DDm1jFKx2gyv5YUdHGqJC_root_T *memspace,
-  s_Jrk1gF3jitJmkPBgphEknE_root_T *workingset, s_Pct27jAhkqchx6iRs2zKpD_root_T
-  *qrmanager);
-static void root_model_xgemv_it3a(int32_T m, int32_T n, const real_T A[31329],
-  int32_T lda, const real_T x_data[], real_T y_data[]);
-static void root_model_computeGrad_StoreHx(s_1ECtvwuWb7KTJMqOG7pbsD_root_T *obj,
-  const real_T H[31329], const real_T f_data[], const real_T x_data[]);
-static real_T root_model_computeFval_ReuseHx(const
-  s_1ECtvwuWb7KTJMqOG7pbsD_root_T *obj, real_T workspace_data[], const real_T
-  f_data[], const real_T x_data[]);
-static void root_model_xgeqrf(real_T A_data[], const int32_T A_size[2], int32_T
-  m, int32_T n, real_T tau_data[], int32_T tau_size[1]);
-static void root_model_factorQR(s_Pct27jAhkqchx6iRs2zKpD_root_T *obj, const
-  real_T A_data[], int32_T mrows, int32_T ncols, int32_T ldA);
-static void root_model_squareQ_appendCol(s_Pct27jAhkqchx6iRs2zKpD_root_T *obj,
-  const real_T vec_data[], int32_T iv0);
-static void root_model_deleteColMoveEnd(s_Pct27jAhkqchx6iRs2zKpD_root_T *obj,
-  int32_T idx);
-static boolean_T root_model_strcmp(const char_T a[7]);
-static void root_model_xgemm(int32_T m, int32_T n, int32_T k, const real_T A
-  [31329], int32_T lda, const real_T B_data[], int32_T ib0, int32_T ldb, real_T
-  C_data[], int32_T ldc);
-static void root_model_xgemm_h(int32_T m, int32_T n, int32_T k, const real_T
-  A_data[], int32_T ia0, int32_T lda, const real_T B_data[], int32_T ldb, real_T
-  C_data[], int32_T ldc);
-static void root_model_fullColLDL2_(s_mdyENYu4oaiCttMAPwg9iE_root_T *obj,
-  int32_T LD_offset, int32_T NColsRemain);
-static void root_model_partialColLDL3_(s_mdyENYu4oaiCttMAPwg9iE_root_T *obj,
-  int32_T LD_offset, int32_T NColsRemain);
-static int32_T root_model_xpotrf(int32_T n, real_T A_data[], int32_T lda);
-static void root_model_xgemv_it3ax(int32_T m, int32_T n, const real_T A_data[],
-  int32_T ia0, int32_T lda, const real_T x_data[], real_T y_data[]);
-static void root_model_factor_j(s_mdyENYu4oaiCttMAPwg9iE_root_T *obj, const
-  real_T A[31329], int32_T ndims, int32_T ldA);
-static void root_model_factor(s_mdyENYu4oaiCttMAPwg9iE_root_T *obj, const real_T
-  A[31329], int32_T ndims, int32_T ldA);
-static void root_model_solve_o(const s_mdyENYu4oaiCttMAPwg9iE_root_T *obj,
-  real_T rhs_data[]);
-static void root_model_solve(const s_mdyENYu4oaiCttMAPwg9iE_root_T *obj, real_T
-  rhs_data[]);
-static void root_model_compute_deltax(const real_T H[31329],
-  s_7iu1rzNoAoHigERqeOFm2G_root_T *solution, s_3DDm1jFKx2gyv5YUdHGqJC_root_T
-  *memspace, const s_Pct27jAhkqchx6iRs2zKpD_root_T *qrmanager,
-  s_mdyENYu4oaiCttMAPwg9iE_root_T *cholmanager, const
-  s_1ECtvwuWb7KTJMqOG7pbsD_root_T *objective, boolean_T alwaysPositiveDef);
-static real_T root_model_xnrm2_ob(int32_T n, const real_T x_data[]);
-static void root_model_xgemv_it3axg(int32_T m, int32_T n, const real_T A_data[],
-  int32_T lda, const real_T x_data[], real_T y_data[]);
-static void root_model_feasibleratiotest(const real_T solution_xstar_data[],
-  const real_T solution_searchDir_data[], real_T workspace_data[], const int32_T
-  workspace_size[2], int32_T workingset_nVar, int32_T workingset_ldA, const
-  real_T workingset_Aineq_data[], const real_T workingset_bineq_data[], const
-  real_T workingset_lb_data[], const int32_T workingset_indexLB_data[], const
-  int32_T workingset_sizes[5], const int32_T workingset_isActiveIdx[6], const
-  boolean_T workingset_isActiveConstr_data[], const int32_T workingset_nWConstr
-  [5], boolean_T isPhaseOne, real_T *alpha, boolean_T *newBlocking, int32_T
-  *constrType, int32_T *constrIdx);
-static void root_m_checkUnboundedOrIllPosed(s_7iu1rzNoAoHigERqeOFm2G_root_T
-  *solution, const s_1ECtvwuWb7KTJMqOG7pbsD_root_T *objective);
-static void root_addBoundToActiveSetMatrix_(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj,
-  int32_T TYPE, int32_T idx_local);
-static void root_model_addAineqConstr(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj,
-  int32_T idx_local);
-static void root_model_compute_lambda(real_T workspace_data[],
-  s_7iu1rzNoAoHigERqeOFm2G_root_T *solution, const
-  s_1ECtvwuWb7KTJMqOG7pbsD_root_T *objective, const
-  s_Pct27jAhkqchx6iRs2zKpD_root_T *qrmanager);
-static void root_checkStoppingAndUpdateFval(int32_T *activeSetChangeID, const
-  real_T f_data[], s_7iu1rzNoAoHigERqeOFm2G_root_T *solution,
-  s_3DDm1jFKx2gyv5YUdHGqJC_root_T *memspace, const
-  s_1ECtvwuWb7KTJMqOG7pbsD_root_T *objective, s_Jrk1gF3jitJmkPBgphEknE_root_T
-  *workingset, s_Pct27jAhkqchx6iRs2zKpD_root_T *qrmanager, int32_T
-  runTimeOptions_MaxIterations, const boolean_T *updateFval);
-static void root_model_iterate(const real_T H[31329], const real_T f_data[],
-  s_7iu1rzNoAoHigERqeOFm2G_root_T *solution, s_3DDm1jFKx2gyv5YUdHGqJC_root_T
-  *memspace, s_Jrk1gF3jitJmkPBgphEknE_root_T *workingset,
-  s_Pct27jAhkqchx6iRs2zKpD_root_T *qrmanager, s_mdyENYu4oaiCttMAPwg9iE_root_T
-  *cholmanager, s_1ECtvwuWb7KTJMqOG7pbsD_root_T *objective, const char_T
-  options_SolverName[7], int32_T runTimeOptions_MaxIterations);
-static void root_model_phaseone(const real_T H[31329], const real_T f_data[],
-  s_7iu1rzNoAoHigERqeOFm2G_root_T *solution, s_3DDm1jFKx2gyv5YUdHGqJC_root_T
-  *memspace, s_Jrk1gF3jitJmkPBgphEknE_root_T *workingset,
-  s_Pct27jAhkqchx6iRs2zKpD_root_T *qrmanager, s_mdyENYu4oaiCttMAPwg9iE_root_T
-  *cholmanager, s_1ECtvwuWb7KTJMqOG7pbsD_root_T *objective, const char_T
-  options_SolverName[7], const somzaGboVhDG7PNQS6E98jD_root__T *runTimeOptions);
-static void ro_checkStoppingAndUpdateFval_j(int32_T *activeSetChangeID,
-  s_7iu1rzNoAoHigERqeOFm2G_root_T *solution, s_3DDm1jFKx2gyv5YUdHGqJC_root_T
-  *memspace, const s_1ECtvwuWb7KTJMqOG7pbsD_root_T *objective,
-  s_Jrk1gF3jitJmkPBgphEknE_root_T *workingset, s_Pct27jAhkqchx6iRs2zKpD_root_T
-  *qrmanager, int32_T runTimeOptions_MaxIterations, boolean_T *updateFval);
-static void root_model_iterate_j(const real_T H[31329], const real_T f_data[],
-  s_7iu1rzNoAoHigERqeOFm2G_root_T *solution, s_3DDm1jFKx2gyv5YUdHGqJC_root_T
-  *memspace, s_Jrk1gF3jitJmkPBgphEknE_root_T *workingset,
-  s_Pct27jAhkqchx6iRs2zKpD_root_T *qrmanager, s_mdyENYu4oaiCttMAPwg9iE_root_T
-  *cholmanager, s_1ECtvwuWb7KTJMqOG7pbsD_root_T *objective, const char_T
-  options_SolverName[7], int32_T runTimeOptions_MaxIterations);
-static void root_model_linearForm_(boolean_T obj_hasLinear, int32_T obj_nvar,
-  real_T workspace_data[], const real_T H[31329], const real_T f_data[], const
-  real_T x_data[]);
-static void root_model_driver_i(const real_T H[31329], const real_T f_data[],
-  s_7iu1rzNoAoHigERqeOFm2G_root_T *solution, s_3DDm1jFKx2gyv5YUdHGqJC_root_T
-  *memspace, s_Jrk1gF3jitJmkPBgphEknE_root_T *workingset,
-  s_Pct27jAhkqchx6iRs2zKpD_root_T *qrmanager, s_mdyENYu4oaiCttMAPwg9iE_root_T
-  *cholmanager, s_1ECtvwuWb7KTJMqOG7pbsD_root_T *objective, const
-  somzaGboVhDG7PNQS6E98jD_root__T *options, const
-  somzaGboVhDG7PNQS6E98jD_root__T *runTimeOptions);
-static void root_model_addAeqConstr(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj,
-  int32_T idx_local);
-static boolean_T root_model_soc(const real_T Hessian[31329], const real_T
-  grad_data[], s_7iu1rzNoAoHigERqeOFm2G_root_T *TrialState,
-  s_3DDm1jFKx2gyv5YUdHGqJC_root_T *memspace, s_Jrk1gF3jitJmkPBgphEknE_root_T
-  *WorkingSet, s_Pct27jAhkqchx6iRs2zKpD_root_T *QRManager,
-  s_mdyENYu4oaiCttMAPwg9iE_root_T *CholManager, s_1ECtvwuWb7KTJMqOG7pbsD_root_T *
-  QPObjective, const somzaGboVhDG7PNQS6E98jD_root__T *qpoptions);
-static real_T root_mod_maxConstraintViolation(const
-  s_Jrk1gF3jitJmkPBgphEknE_root_T *obj, const real_T x_data[]);
-static void root_model_normal(const real_T Hessian[31329], const real_T
-  grad_data[], s_7iu1rzNoAoHigERqeOFm2G_root_T *TrialState,
-  sG8JZ69axY52WWR6RKyApQC_root__T *MeritFunction,
-  s_3DDm1jFKx2gyv5YUdHGqJC_root_T *memspace, s_Jrk1gF3jitJmkPBgphEknE_root_T
-  *WorkingSet, s_Pct27jAhkqchx6iRs2zKpD_root_T *QRManager,
-  s_mdyENYu4oaiCttMAPwg9iE_root_T *CholManager, s_1ECtvwuWb7KTJMqOG7pbsD_root_T *
-  QPObjective, const somzaGboVhDG7PNQS6E98jD_root__T *qpoptions,
-  s7RdrPWkr8UPAUyTdDJkLaG_root__T *stepFlags);
-static void root_model_relaxed(const real_T Hessian[31329], const real_T
-  grad_data[], s_7iu1rzNoAoHigERqeOFm2G_root_T *TrialState,
-  sG8JZ69axY52WWR6RKyApQC_root__T *MeritFunction,
-  s_3DDm1jFKx2gyv5YUdHGqJC_root_T *memspace, s_Jrk1gF3jitJmkPBgphEknE_root_T
-  *WorkingSet, s_Pct27jAhkqchx6iRs2zKpD_root_T *QRManager,
-  s_mdyENYu4oaiCttMAPwg9iE_root_T *CholManager, s_1ECtvwuWb7KTJMqOG7pbsD_root_T *
-  QPObjective, somzaGboVhDG7PNQS6E98jD_root__T *qpoptions);
-static void root_model_step_k(s7RdrPWkr8UPAUyTdDJkLaG_root__T *stepFlags, real_T
-  Hessian[31329], const real_T lb[177], s_7iu1rzNoAoHigERqeOFm2G_root_T
-  *TrialState, sG8JZ69axY52WWR6RKyApQC_root__T *MeritFunction,
-  s_3DDm1jFKx2gyv5YUdHGqJC_root_T *memspace, s_Jrk1gF3jitJmkPBgphEknE_root_T
-  *WorkingSet, s_Pct27jAhkqchx6iRs2zKpD_root_T *QRManager,
-  s_mdyENYu4oaiCttMAPwg9iE_root_T *CholManager, s_1ECtvwuWb7KTJMqOG7pbsD_root_T *
-  QPObjective, somzaGboVhDG7PNQS6E98jD_root__T *qpoptions);
-static void root_model_stateEvolution_c(const real_T X[187], const real_T U[33],
-  real_T parameters_f1, real_T parameters_f2, real_T parameters_f3, const real_T
-  parameters_f4[9], real_T parameters_f5, real_T c[170]);
-static void root_model_outputBounds_n(const real_T runtimedata_OutputMin[130],
-  const real_T runtimedata_OutputMax[130], const real_T X[187], real_T e, real_T
-  c_data[], int32_T c_size[2]);
-static void root_model_c4_mpclib_anonFcn2_n(const real_T runtimedata_x[17],
-  const real_T runtimedata_OutputMin[130], const real_T runtimedata_OutputMax
-  [130], real_T runtimedata_Parameters_f1, real_T runtimedata_Parameters_f2,
-  real_T runtimedata_Parameters_f3, const real_T runtimedata_Parameters_f4[9],
-  real_T runtimedata_Parameters_f5, const real_T z[177], real_T
-  varargout_1_data[], int32_T varargout_1_size[2], real_T varargout_2[170]);
-static void root_model_evalObjAndConstr(int32_T obj_next_next_next_next_next_b_,
-  const s_WBLIzjzqQS4bg0a8DMrwYD_root_T *obj_next_next_next_next_next_ne, const
-  s_pVH6DktXFODPXN9VaZK2hE_root_T *obj_next_next_next_next_next__0, const real_T
-  x[177], real_T Cineq_workspace_data[], int32_T ineq0, real_T Ceq_workspace[170],
-  real_T *fval, int32_T *status);
-static void root_mod_computeLinearResiduals(const real_T x[177], int32_T nVar,
-  real_T workspaceIneq_data[], const int32_T workspaceIneq_size[1], int32_T
-  mLinIneq, const real_T AineqT_data[], const real_T bineq_data[], int32_T ldAi);
-static real_T root_model_computeMeritFcn(real_T obj_penaltyParam, real_T fval,
-  const real_T Cineq_workspace_data[], int32_T mIneq, const real_T
-  Ceq_workspace[170], boolean_T evalWellDefined);
-static void root_model_linesearch(boolean_T *evalWellDefined, const real_T
-  bineq_data[], int32_T WorkingSet_nVar, int32_T WorkingSet_ldA, const real_T
-  WorkingSet_Aineq_data[], s_7iu1rzNoAoHigERqeOFm2G_root_T *TrialState, real_T
-  MeritFunction_penaltyParam, real_T MeritFunction_phi, real_T
-  MeritFunction_phiPrimePlus, real_T MeritFunction_phiFullStep, int32_T
-  FcnEvaluator_next_next_next_nex, const s_WBLIzjzqQS4bg0a8DMrwYD_root_T
-  *FcnEvaluator_next_next_next_n_0, const s_pVH6DktXFODPXN9VaZK2hE_root_T
-  *FcnEvaluator_next_next_next_n_1, boolean_T socTaken, real_T *alpha, int32_T
-  *exitflag);
-static void root_model_driver(const real_T bineq_data[], const real_T lb[177],
-  s_7iu1rzNoAoHigERqeOFm2G_root_T *TrialState, sG8JZ69axY52WWR6RKyApQC_root__T
-  *MeritFunction, const coder_internal_stickyStruct_2_T *FcnEvaluator,
-  s_3DDm1jFKx2gyv5YUdHGqJC_root_T *memspace, s_Jrk1gF3jitJmkPBgphEknE_root_T
-  *WorkingSet, s_Pct27jAhkqchx6iRs2zKpD_root_T *QRManager,
-  s_mdyENYu4oaiCttMAPwg9iE_root_T *CholManager, s_1ECtvwuWb7KTJMqOG7pbsD_root_T *
-  QPObjective, const int32_T fscales_lineq_constraint_size[1], const int32_T
-  fscales_cineq_constraint_size[1], real_T Hessian[31329]);
-static void root_model_fmincon(const s_WBLIzjzqQS4bg0a8DMrwYD_root_T
-  *fun_workspace_runtimedata, const scI1GGq4Cpah2bZUcB8s80D_root__T
-  *fun_workspace_userdata, const real_T x0[177], const real_T Aineq_data[],
-  const real_T bineq_data[], const int32_T bineq_size[1], const real_T lb[177],
-  const s_WBLIzjzqQS4bg0a8DMrwYD_root_T *nonlcon_workspace_runtimedata, real_T
-  x[177], real_T *fval, real_T *exitflag, sttYSJM5GCi2c1Eu0R50efC_root__T
-  *output);
-static real_T root_model_xnrm2_lx(int32_T n, const real_T x[578], int32_T ix0);
-static void root_model_qrFactor_lx(const real_T A[289], const real_T S[289],
-  const real_T Ns[289], real_T b_S[289]);
 
 /* Projection for root system: '<Root>' */
-void root_model_projection(void)
+void root_model::root_model_projection()
 {
   __m128d tmp;
   __m128d tmp_0;
@@ -453,7 +62,7 @@ void root_model_projection(void)
  * This function updates continuous states using the ODE3 fixed-step
  * solver algorithm
  */
-static void rt_ertODEUpdateContinuousStates(RTWSolverInfo *si )
+void root_model::rt_ertODEUpdateContinuousStates(RTWSolverInfo *si )
 {
   /* Solver Matrices */
   static const real_T rt_ODE3_A[3]{
@@ -509,7 +118,7 @@ static void rt_ertODEUpdateContinuousStates(RTWSolverInfo *si )
 
   rtsiSetT(si, t + h*rt_ODE3_A[0]);
   rtsiSetdX(si, f1);
-  root_model_step();
+  this->step();
   root_model_derivatives();
 
   /* f(:,3) = feval(odefile, t + hA(2), y + f*hB(:,2), args(:)(*)); */
@@ -523,7 +132,7 @@ static void rt_ertODEUpdateContinuousStates(RTWSolverInfo *si )
 
   rtsiSetT(si, t + h*rt_ODE3_A[1]);
   rtsiSetdX(si, f2);
-  root_model_step();
+  this->step();
   root_model_derivatives();
 
   /* tnew = t + hA(3);
@@ -537,12 +146,354 @@ static void rt_ertODEUpdateContinuousStates(RTWSolverInfo *si )
   }
 
   rtsiSetT(si, tnew);
-  root_model_step();
+  this->step();
   root_model_projection();
   rtsiSetSimTimeStep(si,MAJOR_TIME_STEP);
 }
 
-static real_T root_model_xnrm2(int32_T n, const real_T x[390], int32_T ix0)
+/* Function for MATLAB Function: '<S7>/MATLAB Function' */
+void root_model::root_model_vehicle_state_func(const real_T x[17], const real_T
+  u[3], real_T kP, real_T body_mass, real_T gravity_accel, const real_T
+  inertia_tensor[9], real_T lever_arm, real_T x_dot[17])
+{
+  __m128d tmp_0;
+  __m128d tmp_1;
+  __m128d tmp_2;
+  __m128d tmp_3;
+  __m128d tmp_4;
+  __m128d tmp_5;
+  __m128d tmp_6;
+  __m128d tmp_7;
+  __m128d tmp_8;
+  __m128d tmp_9;
+  real_T c[9];
+  real_T c_0[9];
+  real_T n_0[9];
+  real_T B[3];
+  real_T omega[3];
+  real_T tmp[2];
+  real_T a21;
+  real_T accel_idx_2;
+  real_T b_idx_0;
+  real_T b_idx_1;
+  real_T b_idx_2;
+  real_T b_tmp;
+  real_T b_x_b;
+  real_T b_x_c;
+  real_T b_x_d;
+  real_T body_thrust_idx_0;
+  real_T body_thrust_idx_1;
+  real_T c_1;
+  real_T maxval;
+  real_T n;
+  real_T y;
+  int32_T r1;
+  int32_T r2;
+  int32_T r3;
+  int32_T rtemp;
+  static const int8_T c_2[3]{ 1, 0, 0 };
+
+  static const int8_T d[3]{ 0, 1, 0 };
+
+  static const int8_T c_b[3]{ 0, 0, 1 };
+
+  omega[0] = x[10];
+  omega[1] = x[11];
+  omega[2] = x[12];
+  maxval = u[0] * u[0] * kP;
+  a21 = 57.295779513082323 * u[1];
+  accel_idx_2 = a21;
+  sind_CjVy6Jw4(&accel_idx_2);
+  cosd_ZK11uGDT(&a21);
+  n = 57.295779513082323 * u[2];
+  b_tmp = n;
+  sind_CjVy6Jw4(&b_tmp);
+  cosd_ZK11uGDT(&n);
+  c[1] = 0.0;
+  c[4] = a21;
+  c[7] = -accel_idx_2;
+  c[2] = 0.0;
+  c[5] = accel_idx_2;
+  c[8] = a21;
+  n_0[0] = n;
+  n_0[3] = 0.0;
+  n_0[6] = b_tmp;
+  n_0[2] = -b_tmp;
+  n_0[5] = 0.0;
+  n_0[8] = n;
+  for (r1 = 0; r1 < 3; r1++) {
+    c[3 * r1] = c_2[r1];
+    r2 = 3 * r1 + 1;
+    n_0[r2] = d[r1];
+    c_0[3 * r1] = 0.0;
+    c_0[r2] = 0.0;
+    c_0[3 * r1 + 2] = 0.0;
+  }
+
+  for (r1 = 0; r1 < 3; r1++) {
+    c_1 = c_0[3 * r1];
+    r2 = 3 * r1 + 1;
+    body_thrust_idx_1 = c_0[r2];
+    r3 = 3 * r1 + 2;
+    b_tmp = c_0[r3];
+    for (rtemp = 0; rtemp < 3; rtemp++) {
+      body_thrust_idx_0 = n_0[3 * r1 + rtemp];
+      tmp_0 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&c[3 * rtemp]), _mm_set1_pd
+        (body_thrust_idx_0)), _mm_set_pd(body_thrust_idx_1, c_1));
+      _mm_storeu_pd(&tmp[0], tmp_0);
+      c_1 = tmp[0];
+      body_thrust_idx_1 = tmp[1];
+      b_tmp += c[3 * rtemp + 2] * body_thrust_idx_0;
+    }
+
+    c_0[r3] = b_tmp;
+    c_0[r2] = body_thrust_idx_1;
+    c_0[3 * r1] = c_1;
+  }
+
+  n = std::sqrt(((x[6] * x[6] + x[7] * x[7]) + x[8] * x[8]) + x[9] * x[9]);
+  _mm_storeu_pd(&tmp[0], _mm_div_pd(_mm_loadu_pd(&x[7]), _mm_set1_pd(n)));
+  a21 = tmp[0];
+  accel_idx_2 = tmp[1];
+  y = 1.0 / body_mass;
+  b_idx_0 = 0.0;
+  b_idx_1 = 0.0;
+  b_idx_2 = 0.0;
+  c_1 = 0.0;
+  body_thrust_idx_1 = 0.0;
+  b_tmp = 0.0;
+  for (r1 = 0; r1 < 3; r1++) {
+    body_thrust_idx_0 = c_b[r1];
+    tmp_0 = _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&c_0[3 * r1]), _mm_set1_pd
+      (body_thrust_idx_0)), _mm_set_pd(body_thrust_idx_1, c_1));
+    _mm_storeu_pd(&tmp[0], tmp_0);
+    c_1 = tmp[0];
+    body_thrust_idx_1 = tmp[1];
+    _mm_storeu_pd(&tmp[0], _mm_add_pd(_mm_mul_pd(_mm_set_pd(inertia_tensor[3 *
+      r1], c_0[3 * r1 + 2]), _mm_set_pd(omega[r1], body_thrust_idx_0)),
+      _mm_set_pd(b_idx_0, b_tmp)));
+    b_tmp = tmp[0];
+    b_idx_0 = tmp[1];
+    _mm_storeu_pd(&tmp[0], _mm_add_pd(_mm_mul_pd(_mm_loadu_pd(&inertia_tensor[3 *
+      r1 + 1]), _mm_set1_pd(omega[r1])), _mm_set_pd(b_idx_2, b_idx_1)));
+    b_idx_1 = tmp[0];
+    b_idx_2 = tmp[1];
+  }
+
+  body_thrust_idx_0 = maxval * c_1;
+  body_thrust_idx_1 *= maxval;
+  c_1 = maxval * b_tmp;
+  maxval = x[6] / n;
+  n = x[9] / n;
+  b_tmp = ((maxval * 0.0 - a21 * body_thrust_idx_0) - accel_idx_2 *
+           body_thrust_idx_1) - n * c_1;
+  b_x_b = ((maxval * body_thrust_idx_0 + a21 * 0.0) + accel_idx_2 * c_1) - n *
+    body_thrust_idx_1;
+  b_x_c = ((maxval * body_thrust_idx_1 - a21 * c_1) + accel_idx_2 * 0.0) + n *
+    body_thrust_idx_0;
+  b_x_d = ((maxval * c_1 + a21 * body_thrust_idx_1) - accel_idx_2 *
+           body_thrust_idx_0) + n * 0.0;
+  tmp_0 = _mm_set_pd(1.0, -1.0);
+  tmp_6 = _mm_set_pd(-1.0, 1.0);
+  _mm_storeu_pd(&tmp[0], _mm_add_pd(_mm_mul_pd(_mm_add_pd(_mm_add_pd(_mm_add_pd
+    (_mm_mul_pd(_mm_set1_pd(b_tmp), _mm_set_pd(-accel_idx_2, -a21)), _mm_mul_pd
+     (_mm_mul_pd(_mm_set1_pd(b_x_b), _mm_set_pd(-n, maxval)), tmp_6)),
+    _mm_mul_pd(_mm_set1_pd(b_x_c), _mm_set_pd(maxval, -n))), _mm_mul_pd
+    (_mm_mul_pd(_mm_set1_pd(b_x_d), _mm_set_pd(-a21, -accel_idx_2)), tmp_0)),
+    _mm_set1_pd(y)), _mm_div_pd(_mm_loadu_pd(&x[13]), _mm_set1_pd(body_mass))));
+  accel_idx_2 = ((((b_tmp * -n + b_x_b * -accel_idx_2) - b_x_c * -a21) + b_x_d *
+                  maxval) * y - gravity_accel) + 0.0 / body_mass;
+  std::memcpy(&c[0], &inertia_tensor[0], 9U * sizeof(real_T));
+  _mm_storeu_pd(&B[0], _mm_sub_pd(_mm_add_pd(_mm_sub_pd(_mm_mul_pd(_mm_set_pd
+    (body_thrust_idx_0, 0.0), _mm_set_pd(lever_arm, c_1)), _mm_mul_pd(_mm_set_pd
+    (0.0, body_thrust_idx_1), _mm_set_pd(c_1, lever_arm))), _mm_loadu_pd(&x[15])),
+    _mm_sub_pd(_mm_mul_pd(_mm_set_pd(b_idx_0, x[11]), _mm_set_pd(x[12], b_idx_2)),
+               _mm_mul_pd(_mm_set_pd(x[10], b_idx_1), _mm_set_pd(b_idx_2, x[12])))));
+  B[2] = (0.0 * body_thrust_idx_1 - body_thrust_idx_0 * 0.0) - (x[10] * b_idx_1
+    - b_idx_0 * x[11]);
+  r1 = 0;
+  r2 = 1;
+  r3 = 2;
+  maxval = std::abs(inertia_tensor[0]);
+  a21 = std::abs(inertia_tensor[1]);
+  if (a21 > maxval) {
+    maxval = a21;
+    r1 = 1;
+    r2 = 0;
+  }
+
+  if (std::abs(inertia_tensor[2]) > maxval) {
+    r1 = 2;
+    r2 = 1;
+    r3 = 0;
+  }
+
+  c[r2] = inertia_tensor[r2] / inertia_tensor[r1];
+  c[r3] /= c[r1];
+  c[r2 + 3] -= c[r1 + 3] * c[r2];
+  c[r3 + 3] -= c[r1 + 3] * c[r3];
+  c[r2 + 6] -= c[r1 + 6] * c[r2];
+  c[r3 + 6] -= c[r1 + 6] * c[r3];
+  if (std::abs(c[r3 + 3]) > std::abs(c[r2 + 3])) {
+    rtemp = r2;
+    r2 = r3;
+    r3 = rtemp;
+  }
+
+  c[r3 + 3] /= c[r2 + 3];
+  c[r3 + 6] -= c[r3 + 3] * c[r2 + 6];
+  body_thrust_idx_1 = B[r2] - B[r1] * c[r2];
+  maxval = ((B[r3] - B[r1] * c[r3]) - c[r3 + 3] * body_thrust_idx_1) / c[r3 + 6];
+  body_thrust_idx_1 = (body_thrust_idx_1 - c[r2 + 6] * maxval) / c[r2 + 3];
+  std::memset(&x_dot[0], 0, 17U * sizeof(real_T));
+  x_dot[0] = x[3];
+  x_dot[3] = tmp[0];
+  x_dot[10] = ((B[r1] - c[r1 + 6] * maxval) - c[r1 + 3] * body_thrust_idx_1) /
+    c[r1];
+  x_dot[1] = x[4];
+  x_dot[4] = tmp[1];
+  x_dot[11] = body_thrust_idx_1;
+  x_dot[2] = x[5];
+  x_dot[5] = accel_idx_2;
+  x_dot[12] = maxval;
+  tmp_1 = _mm_set1_pd(x[6]);
+  tmp_2 = _mm_set1_pd(x[7]);
+  tmp_3 = _mm_set_pd(x[11], x[12]);
+  tmp_4 = _mm_set1_pd(x[8]);
+  tmp_5 = _mm_set_pd(x[10], 0.0);
+  tmp_7 = _mm_set1_pd(x[9]);
+  tmp_8 = _mm_set_pd(0.0, x[10]);
+  tmp_9 = _mm_set1_pd(0.5);
+  _mm_storeu_pd(&x_dot[6], _mm_mul_pd(_mm_sub_pd(_mm_add_pd(_mm_add_pd
+    (_mm_mul_pd(tmp_1, tmp_5), _mm_mul_pd(_mm_mul_pd(tmp_2, tmp_8), tmp_0)),
+    _mm_mul_pd(_mm_mul_pd(tmp_4, _mm_loadu_pd(&x[11])), tmp_0)), _mm_mul_pd
+    (tmp_7, tmp_3)), tmp_9));
+  _mm_storeu_pd(&x_dot[8], _mm_mul_pd(_mm_add_pd(_mm_add_pd(_mm_add_pd
+    (_mm_mul_pd(tmp_1, _mm_loadu_pd(&x[11])), _mm_mul_pd(_mm_mul_pd(tmp_2, tmp_3),
+    tmp_0)), _mm_mul_pd(_mm_mul_pd(tmp_4, tmp_5), tmp_6)), _mm_mul_pd(tmp_7,
+    tmp_8)), tmp_9));
+}
+
+/* Output and update for Simulink Function: '<Root>/Simulink Function' */
+void root_model::ekf_t_func(const real_T rtu_x[17], real_T rty_x_hat[17])
+{
+  /* local block i/o variables */
+  real_T rtb_TmpLatchAtIn1Outport1[16];
+  __m128d tmp;
+  __m128d tmp_0;
+  __m128d tmp_1;
+  __m128d tmp_2;
+  __m128d tmp_3;
+  __m128d tmp_4;
+  real_T k_1[17];
+  real_T k_2[17];
+  real_T k_3[17];
+  real_T k_4[17];
+  real_T rtu_x_0[17];
+  real_T rtu_x_1;
+  int32_T i;
+
+  /* SignalConversion generated from: '<S7>/In1' */
+  std::memcpy(&rtb_TmpLatchAtIn1Outport1[0], &root_model_B.VectorConcatenate1[0],
+              sizeof(real_T) << 4U);
+
+  /* MATLAB Function: '<S7>/MATLAB Function' incorporates:
+   *  SignalConversion generated from: '<S7>/x'
+   */
+  root_model_vehicle_state_func(rtu_x, &rtb_TmpLatchAtIn1Outport1[0],
+    rtb_TmpLatchAtIn1Outport1[3], rtb_TmpLatchAtIn1Outport1[4],
+    rtb_TmpLatchAtIn1Outport1[5], &rtb_TmpLatchAtIn1Outport1[6],
+    rtb_TmpLatchAtIn1Outport1[15], k_1);
+  for (i = 0; i <= 14; i += 2) {
+    tmp_2 = _mm_loadu_pd(&k_1[i]);
+    tmp_3 = _mm_loadu_pd(&rtu_x[i]);
+    _mm_storeu_pd(&rtu_x_0[i], _mm_add_pd(_mm_div_pd(tmp_2, _mm_set1_pd(2.0)),
+      tmp_3));
+  }
+
+  for (i = 16; i < 17; i++) {
+    rtu_x_0[i] = k_1[i] / 2.0 + rtu_x[i];
+  }
+
+  root_model_vehicle_state_func(rtu_x_0, &rtb_TmpLatchAtIn1Outport1[0],
+    rtb_TmpLatchAtIn1Outport1[3], rtb_TmpLatchAtIn1Outport1[4],
+    rtb_TmpLatchAtIn1Outport1[5], &rtb_TmpLatchAtIn1Outport1[6],
+    rtb_TmpLatchAtIn1Outport1[15], k_2);
+  for (i = 0; i <= 14; i += 2) {
+    tmp_2 = _mm_loadu_pd(&k_2[i]);
+    tmp_3 = _mm_loadu_pd(&rtu_x[i]);
+    _mm_storeu_pd(&rtu_x_0[i], _mm_add_pd(_mm_div_pd(tmp_2, _mm_set1_pd(2.0)),
+      tmp_3));
+  }
+
+  for (i = 16; i < 17; i++) {
+    rtu_x_0[i] = k_2[i] / 2.0 + rtu_x[i];
+  }
+
+  root_model_vehicle_state_func(rtu_x_0, &rtb_TmpLatchAtIn1Outport1[0],
+    rtb_TmpLatchAtIn1Outport1[3], rtb_TmpLatchAtIn1Outport1[4],
+    rtb_TmpLatchAtIn1Outport1[5], &rtb_TmpLatchAtIn1Outport1[6],
+    rtb_TmpLatchAtIn1Outport1[15], k_3);
+  for (i = 0; i <= 14; i += 2) {
+    tmp_2 = _mm_loadu_pd(&rtu_x[i]);
+    tmp_3 = _mm_loadu_pd(&k_3[i]);
+    _mm_storeu_pd(&rtu_x_0[i], _mm_add_pd(tmp_2, tmp_3));
+  }
+
+  for (i = 16; i < 17; i++) {
+    rtu_x_0[i] = rtu_x[i] + k_3[i];
+  }
+
+  root_model_vehicle_state_func(rtu_x_0, &rtb_TmpLatchAtIn1Outport1[0],
+    rtb_TmpLatchAtIn1Outport1[3], rtb_TmpLatchAtIn1Outport1[4],
+    rtb_TmpLatchAtIn1Outport1[5], &rtb_TmpLatchAtIn1Outport1[6],
+    rtb_TmpLatchAtIn1Outport1[15], k_4);
+  for (i = 0; i <= 14; i += 2) {
+    /* SignalConversion generated from: '<S7>/x_hat' incorporates:
+     *  MATLAB Function: '<S7>/MATLAB Function'
+     *  SignalConversion generated from: '<S7>/x'
+     */
+    tmp_2 = _mm_loadu_pd(&rtu_x[i]);
+    _mm_storeu_pd(&rty_x_hat[i], tmp_2);
+
+    /* MATLAB Function: '<S7>/MATLAB Function' incorporates:
+     *  SignalConversion generated from: '<S7>/x'
+     *  SignalConversion generated from: '<S7>/x_hat'
+     */
+    tmp_3 = _mm_loadu_pd(&k_2[i]);
+    tmp_4 = _mm_set1_pd(2.0);
+    tmp = _mm_loadu_pd(&k_1[i]);
+    tmp_0 = _mm_loadu_pd(&k_3[i]);
+    tmp_1 = _mm_loadu_pd(&k_4[i]);
+    _mm_storeu_pd(&k_1[i], _mm_add_pd(_mm_mul_pd(_mm_add_pd(_mm_add_pd
+      (_mm_add_pd(_mm_mul_pd(tmp_4, tmp_3), tmp), _mm_mul_pd(tmp_4, tmp_0)),
+      tmp_1), _mm_set1_pd(0.16666666666666666)), tmp_2));
+  }
+
+  for (i = 16; i < 17; i++) {
+    /* SignalConversion generated from: '<S7>/x' */
+    rtu_x_1 = rtu_x[i];
+
+    /* SignalConversion generated from: '<S7>/x_hat' incorporates:
+     *  MATLAB Function: '<S7>/MATLAB Function'
+     *  SignalConversion generated from: '<S7>/x'
+     */
+    rty_x_hat[i] = rtu_x_1;
+
+    /* MATLAB Function: '<S7>/MATLAB Function' incorporates:
+     *  SignalConversion generated from: '<S7>/x'
+     */
+    k_1[i] = (((2.0 * k_2[i] + k_1[i]) + 2.0 * k_3[i]) + k_4[i]) *
+      0.16666666666666666 + rtu_x_1;
+  }
+
+  /* MATLAB Function: '<S7>/MATLAB Function' incorporates:
+   *  SignalConversion generated from: '<S7>/x_hat'
+   */
+  std::memcpy(&rty_x_hat[0], &k_1[0], 13U * sizeof(real_T));
+}
+
+real_T root_model::root_model_xnrm2(int32_T n, const real_T x[390], int32_T ix0)
 {
   real_T y;
 
@@ -597,8 +548,8 @@ static real_T root_model_xnrm2(int32_T n, const real_T x[390], int32_T ix0)
   return y;
 }
 
-static void root_model_qrFactor(const real_T A[221], const real_T S[289], const
-  real_T Ns[169], real_T b_S[169])
+void root_model::root_model_qrFactor(const real_T A[221], const real_T S[289],
+  const real_T Ns[169], real_T b_S[169])
 {
   __m128d tmp;
   real_T M[390];
@@ -815,7 +766,7 @@ static void root_model_qrFactor(const real_T A[221], const real_T S[289], const
   }
 }
 
-static void root_model_trisolve(const real_T A[169], real_T B[221])
+void root_model::root_model_trisolve(const real_T A[169], real_T B[221])
 {
   /* Start for MATLABSystem: '<S8>/MATLAB System' */
   for (int32_T b_j{0}; b_j < 17; b_j++) {
@@ -844,7 +795,7 @@ static void root_model_trisolve(const real_T A[169], real_T B[221])
   /* End of Start for MATLABSystem: '<S8>/MATLAB System' */
 }
 
-static void root_model_trisolve_l(const real_T A[169], real_T B[221])
+void root_model::root_model_trisolve_l(const real_T A[169], real_T B[221])
 {
   /* Start for MATLABSystem: '<S8>/MATLAB System' */
   for (int32_T b_j{0}; b_j < 17; b_j++) {
@@ -871,7 +822,8 @@ static void root_model_trisolve_l(const real_T A[169], real_T B[221])
   /* End of Start for MATLABSystem: '<S8>/MATLAB System' */
 }
 
-static real_T root_model_xnrm2_l(int32_T n, const real_T x[510], int32_T ix0)
+real_T root_model::root_model_xnrm2_l(int32_T n, const real_T x[510], int32_T
+  ix0)
 {
   real_T y;
 
@@ -926,7 +878,7 @@ static real_T root_model_xnrm2_l(int32_T n, const real_T x[510], int32_T ix0)
   return y;
 }
 
-static void root_model_qrFactor_l(const real_T A[289], const real_T S[289],
+void root_model::root_model_qrFactor_l(const real_T A[289], const real_T S[289],
   const real_T Ns[221], real_T b_S[289])
 {
   __m128d tmp;
@@ -1145,7 +1097,7 @@ static void root_model_qrFactor_l(const real_T A[289], const real_T S[289],
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_getUBounds(const real_T runtimedata_lastMV[3], const
+void root_model::root_model_getUBounds(const real_T runtimedata_lastMV[3], const
   real_T runtimedata_MVMin[30], const real_T runtimedata_MVMax[30], const real_T
   runtimedata_MVRateMin[30], const real_T runtimedata_MVRateMax[30], real_T
   A_data[], int32_T A_size[2], real_T Bu_data[], int32_T Bu_size[1])
@@ -1461,7 +1413,7 @@ static void root_model_getUBounds(const real_T runtimedata_lastMV[3], const
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_computeJacobianState(real_T parameters_f1, real_T
+void root_model::root_model_computeJacobianState(real_T parameters_f1, real_T
   parameters_f2, real_T parameters_f3, const real_T parameters_f4[9], real_T
   parameters_f5, const real_T f0[17], real_T x0[17], real_T u0[3], real_T Jx[289],
   real_T Jmv[51])
@@ -1529,9 +1481,9 @@ static void root_model_computeJacobianState(real_T parameters_f1, real_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_stateEvolution(const real_T X[187], const real_T U[33],
-  real_T parameters_f1, real_T parameters_f2, real_T parameters_f3, const real_T
-  parameters_f4[9], real_T parameters_f5, real_T c[170], real_T J[30090])
+void root_model::root_model_stateEvolution(const real_T X[187], const real_T U
+  [33], real_T parameters_f1, real_T parameters_f2, real_T parameters_f3, const
+  real_T parameters_f4[9], real_T parameters_f5, real_T c[170], real_T J[30090])
 {
   __m128d tmp;
   __m128d tmp_1;
@@ -1693,7 +1645,7 @@ static void root_model_stateEvolution(const real_T X[187], const real_T U[33],
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static boolean_T root_model_any(const boolean_T x[26])
+boolean_T root_model::root_model_any(const boolean_T x[26])
 {
   int32_T k;
   boolean_T exitg1;
@@ -1714,7 +1666,7 @@ static boolean_T root_model_any(const boolean_T x[26])
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_reformJacobian(const real_T Jx_data[], const int32_T
+void root_model::root_model_reformJacobian(const real_T Jx_data[], const int32_T
   Jx_size[3], const real_T Jmv_data[], const real_T Je_data[], const int32_T
   Je_size[1], real_T Jc_data[], int32_T Jc_size[2])
 {
@@ -1803,7 +1755,7 @@ static void root_model_reformJacobian(const real_T Jx_data[], const int32_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_outputBounds(const real_T runtimedata_OutputMin[130],
+void root_model::root_model_outputBounds(const real_T runtimedata_OutputMin[130],
   const real_T runtimedata_OutputMax[130], const real_T X[187], real_T e, real_T
   c_data[], int32_T c_size[2], real_T Jc_data[], int32_T Jc_size[2])
 {
@@ -2066,13 +2018,14 @@ static void root_model_outputBounds(const real_T runtimedata_OutputMin[130],
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_c4_mpclib_anonFcn2(const real_T runtimedata_x[17], const
-  real_T runtimedata_OutputMin[130], const real_T runtimedata_OutputMax[130],
-  real_T runtimedata_Parameters_f1, real_T runtimedata_Parameters_f2, real_T
-  runtimedata_Parameters_f3, const real_T runtimedata_Parameters_f4[9], real_T
-  runtimedata_Parameters_f5, const real_T z[177], real_T varargout_1_data[],
-  int32_T varargout_1_size[2], real_T varargout_2[170], real_T varargout_3_data[],
-  int32_T varargout_3_size[2], real_T varargout_4[30090])
+void root_model::root_model_c4_mpclib_anonFcn2(const real_T runtimedata_x[17],
+  const real_T runtimedata_OutputMin[130], const real_T runtimedata_OutputMax
+  [130], real_T runtimedata_Parameters_f1, real_T runtimedata_Parameters_f2,
+  real_T runtimedata_Parameters_f3, const real_T runtimedata_Parameters_f4[9],
+  real_T runtimedata_Parameters_f5, const real_T z[177], real_T
+  varargout_1_data[], int32_T varargout_1_size[2], real_T varargout_2[170],
+  real_T varargout_3_data[], int32_T varargout_3_size[2], real_T varargout_4
+  [30090])
 {
   real_T varargin_1_data[260];
   real_T X[187];
@@ -2126,7 +2079,7 @@ static void root_model_c4_mpclib_anonFcn2(const real_T runtimedata_x[17], const
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_factoryConstruct(int32_T nVarMax, int32_T mConstrMax,
+void root_model::root_model_factoryConstruct(int32_T nVarMax, int32_T mConstrMax,
   int32_T mIneq, int32_T mNonlinIneq, s_7iu1rzNoAoHigERqeOFm2G_root_T *obj)
 {
   obj->nVarMax = nVarMax;
@@ -2190,7 +2143,7 @@ static void root_model_factoryConstruct(int32_T nVarMax, int32_T mConstrMax,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_mode_factoryConstruct_n0cp(int32_T MaxVars, int32_T
+void root_model::root_mode_factoryConstruct_n0cp(int32_T MaxVars, int32_T
   obj_grad_size[1], int32_T obj_Hx_size[1], boolean_T *obj_hasLinear, int32_T
   *obj_nvar, int32_T *obj_maxVar, real_T *obj_beta, real_T *obj_rho, int32_T
   *obj_objtype, int32_T *obj_prev_objtype, int32_T *obj_prev_nvar, boolean_T
@@ -2211,8 +2164,8 @@ static void root_mode_factoryConstruct_n0cp(int32_T MaxVars, int32_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_mod_factoryConstruct_n0cp3(int32_T mIneqMax, int32_T nVarMax,
-  int32_T mConstrMax, s_Jrk1gF3jitJmkPBgphEknE_root_T *obj)
+void root_model::root_mod_factoryConstruct_n0cp3(int32_T mIneqMax, int32_T
+  nVarMax, int32_T mConstrMax, s_Jrk1gF3jitJmkPBgphEknE_root_T *obj)
 {
   obj->mConstr = 0;
   obj->mConstrOrig = 0;
@@ -2262,7 +2215,7 @@ static void root_mod_factoryConstruct_n0cp3(int32_T mIneqMax, int32_T nVarMax,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void computeObjectiveAndUserGradient(const
+void root_model::computeObjectiveAndUserGradient(const
   s_pVH6DktXFODPXN9VaZK2hE_root_T *obj_next_next_next_next_next_ne, const real_T
   x[177], real_T grad_workspace_data[], real_T *fval, int32_T *status)
 {
@@ -2535,8 +2488,8 @@ static void computeObjectiveAndUserGradient(const
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static int32_T root_model_checkVectorNonFinite(int32_T N, const real_T vec_data[],
-  int32_T iv0)
+int32_T root_model::root_model_checkVectorNonFinite(int32_T N, const real_T
+  vec_data[], int32_T iv0)
 {
   int32_T idx_current;
   int32_T idx_end;
@@ -2567,7 +2520,7 @@ static int32_T root_model_checkVectorNonFinite(int32_T N, const real_T vec_data[
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static int32_T computeConstraintsAndUserJacobi(int32_T
+int32_T root_model::computeConstraintsAndUserJacobi(int32_T
   obj_next_next_next_next_next_b_, const s_WBLIzjzqQS4bg0a8DMrwYD_root_T
   *obj_next_next_next_next_next_ne, const real_T x[177], real_T
   Cineq_workspace_data[], int32_T ineq0, real_T Ceq_workspace[170], real_T
@@ -2697,7 +2650,7 @@ static int32_T computeConstraintsAndUserJacobi(int32_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void evalObjAndConstrAndDerivatives(int32_T
+void root_model::evalObjAndConstrAndDerivatives(int32_T
   obj_next_next_next_next_next_b_, const s_WBLIzjzqQS4bg0a8DMrwYD_root_T
   *obj_next_next_next_next_next_ne, const s_pVH6DktXFODPXN9VaZK2hE_root_T
   *obj_next_next_next_next_next__0, const real_T x[177], real_T
@@ -2717,7 +2670,8 @@ static void evalObjAndConstrAndDerivatives(int32_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_mo_modifyOverheadPhaseOne_(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj)
+void root_model::root_mo_modifyOverheadPhaseOne_(s_Jrk1gF3jitJmkPBgphEknE_root_T
+  *obj)
 {
   int32_T d;
   int32_T idxEq;
@@ -2762,7 +2716,7 @@ static void root_mo_modifyOverheadPhaseOne_(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_setProblemType(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj,
+void root_model::root_model_setProblemType(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj,
   int32_T PROBLEM_TYPE)
 {
   int32_T colOffsetATw;
@@ -2991,7 +2945,7 @@ static void root_model_setProblemType(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_initActiveSet(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj)
+void root_model::root_model_initActiveSet(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj)
 {
   int32_T colOffsetATw;
   int32_T f;
@@ -3054,7 +3008,7 @@ static void root_model_initActiveSet(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj)
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_factoryConstruct_n0(int32_T maxRows, int32_T maxCols,
+void root_model::root_model_factoryConstruct_n0(int32_T maxRows, int32_T maxCols,
   int32_T *obj_ldq, int32_T obj_QR_size[2], real_T obj_Q_data[], int32_T
   obj_Q_size[2], int32_T obj_jpvt_data[], int32_T obj_jpvt_size[1], int32_T
   *obj_mrows, int32_T *obj_ncols, int32_T obj_tau_size[1], int32_T
@@ -3091,7 +3045,7 @@ static void root_model_factoryConstruct_n0(int32_T maxRows, int32_T maxCols,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_factoryConstruct_n0c(int32_T MaxDims, int32_T
+void root_model::root_model_factoryConstruct_n0c(int32_T MaxDims, int32_T
   obj_FMat_size[2], int32_T *obj_ldm, int32_T *obj_ndims, int32_T *obj_info,
   real_T *obj_scaleFactor, boolean_T *obj_ConvexCheck, real_T *obj_regTol_,
   real_T *obj_workspace_, real_T *obj_workspace2_)
@@ -3109,7 +3063,7 @@ static void root_model_factoryConstruct_n0c(int32_T MaxDims, int32_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_computeGradLag(real_T workspace_data[], int32_T ldA,
+void root_model::root_model_computeGradLag(real_T workspace_data[], int32_T ldA,
   int32_T nVar, const real_T grad_data[], int32_T mIneq, const real_T
   AineqTrans_data[], const real_T AeqTrans_data[], const int32_T
   finiteFixed_data[], int32_T mFixed, const int32_T finiteLB_data[], int32_T mLB,
@@ -3174,7 +3128,7 @@ static void root_model_computeGradLag(real_T workspace_data[], int32_T ldA,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static real_T root_mod_computePrimalFeasError(const real_T x[177], int32_T
+real_T root_model::root_mod_computePrimalFeasError(const real_T x[177], int32_T
   mLinIneq, int32_T mNonlinIneq, const real_T cIneq_data[], const real_T cEq[170],
   const int32_T finiteLB_data[], int32_T mLB, const real_T lb[177], const
   int32_T finiteUB_data[], int32_T mUB)
@@ -3207,7 +3161,7 @@ static real_T root_mod_computePrimalFeasError(const real_T x[177], int32_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_computeDualFeasError(int32_T nVar, const real_T
+void root_model::root_model_computeDualFeasError(int32_T nVar, const real_T
   gradLag_data[], boolean_T *gradOK, real_T *val)
 {
   int32_T idx;
@@ -3228,8 +3182,8 @@ static void root_model_computeDualFeasError(int32_T nVar, const real_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_test_exit(sG8JZ69axY52WWR6RKyApQC_root__T *MeritFunction,
-  const s_Jrk1gF3jitJmkPBgphEknE_root_T *WorkingSet,
+void root_model::root_model_test_exit(sG8JZ69axY52WWR6RKyApQC_root__T
+  *MeritFunction, const s_Jrk1gF3jitJmkPBgphEknE_root_T *WorkingSet,
   s_7iu1rzNoAoHigERqeOFm2G_root_T *TrialState, const real_T lb[177], boolean_T
   *Flags_gradOK, boolean_T *Flags_fevalOK, boolean_T *Flags_done, boolean_T
   *Flags_stepAccepted, boolean_T *Flags_failedLineSearch, int32_T
@@ -3324,7 +3278,7 @@ static void root_model_test_exit(sG8JZ69axY52WWR6RKyApQC_root__T *MeritFunction,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_saveJacobian(s_7iu1rzNoAoHigERqeOFm2G_root_T *obj,
+void root_model::root_model_saveJacobian(s_7iu1rzNoAoHigERqeOFm2G_root_T *obj,
   int32_T nVar, int32_T mIneq, const real_T JacCineqTrans_data[], int32_T
   ineqCol0, const real_T JacCeqTrans_data[], int32_T ldJ)
 {
@@ -3371,7 +3325,7 @@ static void root_model_saveJacobian(s_7iu1rzNoAoHigERqeOFm2G_root_T *obj,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static real_T root_model_computeComplError(const int32_T
+real_T root_model::root_model_computeComplError(const int32_T
   fscales_lineq_constraint_size[1], const int32_T fscales_cineq_constraint_size
   [1], const real_T xCurrent[177], int32_T mIneq, const real_T cIneq_data[],
   const int32_T finiteLB_data[], int32_T mLB, const real_T lb[177], const
@@ -3427,8 +3381,8 @@ static real_T root_model_computeComplError(const int32_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_computeGradLag_h(real_T workspace_data[], int32_T ldA,
-  int32_T nVar, const real_T grad_data[], int32_T mIneq, const real_T
+void root_model::root_model_computeGradLag_h(real_T workspace_data[], int32_T
+  ldA, int32_T nVar, const real_T grad_data[], int32_T mIneq, const real_T
   AineqTrans_data[], const real_T AeqTrans_data[], const int32_T
   finiteFixed_data[], int32_T mFixed, const int32_T finiteLB_data[], int32_T mLB,
   const int32_T finiteUB_data[], int32_T mUB, const real_T lambda_data[])
@@ -3492,7 +3446,7 @@ static void root_model_computeGradLag_h(real_T workspace_data[], int32_T ldA,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_mod_computeDualFeasError_k(int32_T nVar, const real_T
+void root_model::root_mod_computeDualFeasError_k(int32_T nVar, const real_T
   gradLag_data[], boolean_T *gradOK, real_T *val)
 {
   int32_T idx;
@@ -3513,7 +3467,7 @@ static void root_mod_computeDualFeasError_k(int32_T nVar, const real_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_m_updateWorkingSetForNewQP(const real_T xk[177],
+void root_model::root_m_updateWorkingSetForNewQP(const real_T xk[177],
   s_Jrk1gF3jitJmkPBgphEknE_root_T *WorkingSet, int32_T mIneq, int32_T
   mNonlinIneq, const real_T cIneq_data[], const real_T cEq[170], int32_T mLB,
   const real_T lb[177], int32_T mUB, int32_T mFixed)
@@ -3608,8 +3562,8 @@ static void root_m_updateWorkingSetForNewQP(const real_T xk[177],
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_xswap(int32_T n, real_T x_data[], int32_T ix0, int32_T
-  iy0)
+void root_model::root_model_xswap(int32_T n, real_T x_data[], int32_T ix0,
+  int32_T iy0)
 {
   for (int32_T k{0}; k < n; k++) {
     real_T temp;
@@ -3624,7 +3578,8 @@ static void root_model_xswap(int32_T n, real_T x_data[], int32_T ix0, int32_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static real_T root_model_xnrm2_o(int32_T n, const real_T x_data[], int32_T ix0)
+real_T root_model::root_model_xnrm2_o(int32_T n, const real_T x_data[], int32_T
+  ix0)
 {
   real_T y;
   y = 0.0;
@@ -3677,7 +3632,7 @@ static real_T root_model_xnrm2_o(int32_T n, const real_T x_data[], int32_T ix0)
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static real_T root_model_xzlarfg(int32_T n, real_T *alpha1, real_T x_data[],
+real_T root_model::root_model_xzlarfg(int32_T n, real_T *alpha1, real_T x_data[],
   int32_T ix0)
 {
   __m128d tmp;
@@ -3765,7 +3720,7 @@ static real_T root_model_xzlarfg(int32_T n, real_T *alpha1, real_T x_data[],
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_xgemv(int32_T m, int32_T n, const real_T A_data[],
+void root_model::root_model_xgemv(int32_T m, int32_T n, const real_T A_data[],
   int32_T ia0, int32_T lda, const real_T x_data[], int32_T ix0, real_T y_data[])
 {
   if (n != 0) {
@@ -3793,8 +3748,8 @@ static void root_model_xgemv(int32_T m, int32_T n, const real_T A_data[],
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_xgerc(int32_T m, int32_T n, real_T alpha1, int32_T ix0,
-  const real_T y_data[], real_T A_data[], int32_T ia0, int32_T lda)
+void root_model::root_model_xgerc(int32_T m, int32_T n, real_T alpha1, int32_T
+  ix0, const real_T y_data[], real_T A_data[], int32_T ia0, int32_T lda)
 {
   if (!(alpha1 == 0.0)) {
     int32_T jA;
@@ -3817,7 +3772,7 @@ static void root_model_xgerc(int32_T m, int32_T n, real_T alpha1, int32_T ix0,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_xzlarf(int32_T m, int32_T n, int32_T iv0, real_T tau,
+void root_model::root_model_xzlarf(int32_T m, int32_T n, int32_T iv0, real_T tau,
   real_T C_data[], int32_T ic0, int32_T ldc, real_T work_data[])
 {
   int32_T coltop;
@@ -3869,8 +3824,8 @@ static void root_model_xzlarf(int32_T m, int32_T n, int32_T iv0, real_T tau,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_qrf(real_T A_data[], const int32_T A_size[2], int32_T m,
-  int32_T n, int32_T nfxd, real_T tau_data[])
+void root_model::root_model_qrf(real_T A_data[], const int32_T A_size[2],
+  int32_T m, int32_T n, int32_T nfxd, real_T tau_data[])
 {
   real_T b_atmp;
   real_T tau;
@@ -3911,8 +3866,8 @@ static void root_model_qrf(real_T A_data[], const int32_T A_size[2], int32_T m,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_qrpf(real_T A_data[], const int32_T A_size[2], int32_T m,
-  int32_T n, int32_T nfxd, real_T tau_data[], int32_T jpvt_data[])
+void root_model::root_model_qrpf(real_T A_data[], const int32_T A_size[2],
+  int32_T m, int32_T n, int32_T nfxd, real_T tau_data[], int32_T jpvt_data[])
 {
   real_T s;
   real_T smax;
@@ -4034,8 +3989,9 @@ static void root_model_qrpf(real_T A_data[], const int32_T A_size[2], int32_T m,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_xgeqp3(real_T A_data[], const int32_T A_size[2], int32_T
-  m, int32_T n, int32_T jpvt_data[], real_T tau_data[], int32_T tau_size[1])
+void root_model::root_model_xgeqp3(real_T A_data[], const int32_T A_size[2],
+  int32_T m, int32_T n, int32_T jpvt_data[], real_T tau_data[], int32_T
+  tau_size[1])
 {
   int32_T ma;
   int32_T minmana;
@@ -4104,8 +4060,8 @@ static void root_model_xgeqp3(real_T A_data[], const int32_T A_size[2], int32_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_factorQRE(s_Pct27jAhkqchx6iRs2zKpD_root_T *obj, const
-  real_T A_data[], int32_T mrows, int32_T ncols, int32_T ldA)
+void root_model::root_model_factorQRE(s_Pct27jAhkqchx6iRs2zKpD_root_T *obj,
+  const real_T A_data[], int32_T mrows, int32_T ncols, int32_T ldA)
 {
   int32_T b;
   int32_T idx;
@@ -4150,8 +4106,8 @@ static void root_model_factorQRE(s_Pct27jAhkqchx6iRs2zKpD_root_T *obj, const
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_xorgqr(int32_T m, int32_T n, int32_T k, real_T A_data[],
-  const int32_T A_size[2], int32_T lda, const real_T tau_data[])
+void root_model::root_model_xorgqr(int32_T m, int32_T n, int32_T k, real_T
+  A_data[], const int32_T A_size[2], int32_T lda, const real_T tau_data[])
 {
   __m128d tmp;
   int32_T b_k;
@@ -4210,7 +4166,7 @@ static void root_model_xorgqr(int32_T m, int32_T n, int32_T k, real_T A_data[],
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_sortLambdaQP(real_T lambda_data[], int32_T
+void root_model::root_model_sortLambdaQP(real_T lambda_data[], int32_T
   WorkingSet_nActiveConstr, const int32_T WorkingSet_sizes[5], const int32_T
   WorkingSet_isActiveIdx[6], const int32_T WorkingSet_Wid_data[], const int32_T
   WorkingSet_Wlocalidx_data[], real_T workspace_data[])
@@ -4271,7 +4227,7 @@ static void root_model_sortLambdaQP(real_T lambda_data[], int32_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_test_exit_n(s7RdrPWkr8UPAUyTdDJkLaG_root__T *Flags,
+void root_model::root_model_test_exit_n(s7RdrPWkr8UPAUyTdDJkLaG_root__T *Flags,
   s_3DDm1jFKx2gyv5YUdHGqJC_root_T *memspace, sG8JZ69axY52WWR6RKyApQC_root__T
   *MeritFunction, const int32_T fscales_lineq_constraint_size[1], const int32_T
   fscales_cineq_constraint_size[1], s_Jrk1gF3jitJmkPBgphEknE_root_T *WorkingSet,
@@ -4594,8 +4550,8 @@ static void root_model_test_exit_n(s7RdrPWkr8UPAUyTdDJkLaG_root__T *Flags,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static boolean_T root_model_BFGSUpdate(int32_T nvar, real_T Bk[31329], const
-  real_T sk_data[], real_T yk_data[], real_T workspace_data[])
+boolean_T root_model::root_model_BFGSUpdate(int32_T nvar, real_T Bk[31329],
+  const real_T sk_data[], real_T yk_data[], real_T workspace_data[])
 {
   __m128d tmp;
   __m128d tmp_0;
@@ -4732,8 +4688,8 @@ static boolean_T root_model_BFGSUpdate(int32_T nvar, real_T Bk[31329], const
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_factorQRE_h(s_Pct27jAhkqchx6iRs2zKpD_root_T *obj, int32_T
-  mrows, int32_T ncols)
+void root_model::root_model_factorQRE_h(s_Pct27jAhkqchx6iRs2zKpD_root_T *obj,
+  int32_T mrows, int32_T ncols)
 {
   if (mrows * ncols == 0) {
     obj->mrows = mrows;
@@ -4755,7 +4711,7 @@ static void root_model_factorQRE_h(s_Pct27jAhkqchx6iRs2zKpD_root_T *obj, int32_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_countsort(int32_T x_data[], int32_T xLen, int32_T
+void root_model::root_model_countsort(int32_T x_data[], int32_T xLen, int32_T
   workspace_data[], int32_T xMin, int32_T xMax)
 {
   if ((xLen > 1) && (xMax > xMin)) {
@@ -4798,7 +4754,7 @@ static void root_model_countsort(int32_T x_data[], int32_T xLen, int32_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_removeConstr(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj,
+void root_model::root_model_removeConstr(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj,
   int32_T idx_global)
 {
   int32_T TYPE;
@@ -4824,9 +4780,9 @@ static void root_model_removeConstr(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static int32_T root_model_RemoveDependentEq_(s_3DDm1jFKx2gyv5YUdHGqJC_root_T
-  *memspace, s_Jrk1gF3jitJmkPBgphEknE_root_T *workingset,
-  s_Pct27jAhkqchx6iRs2zKpD_root_T *qrmanager)
+int32_T root_model::root_model_RemoveDependentEq_
+  (s_3DDm1jFKx2gyv5YUdHGqJC_root_T *memspace, s_Jrk1gF3jitJmkPBgphEknE_root_T
+   *workingset, s_Pct27jAhkqchx6iRs2zKpD_root_T *qrmanager)
 {
   real_T qtb;
   real_T tol;
@@ -5001,7 +4957,7 @@ static int32_T root_model_RemoveDependentEq_(s_3DDm1jFKx2gyv5YUdHGqJC_root_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_RemoveDependentIneq_(s_Jrk1gF3jitJmkPBgphEknE_root_T
+void root_model::root_model_RemoveDependentIneq_(s_Jrk1gF3jitJmkPBgphEknE_root_T
   *workingset, s_Pct27jAhkqchx6iRs2zKpD_root_T *qrmanager,
   s_3DDm1jFKx2gyv5YUdHGqJC_root_T *memspace)
 {
@@ -5025,8 +4981,8 @@ static void root_model_RemoveDependentIneq_(s_Jrk1gF3jitJmkPBgphEknE_root_T
       nDepIneq = workingset->nActiveConstr;
     }
 
-    tol = std::fmin(1.4901161193847656E-8, 2.2204460492503131E-15 * static_cast<
-                    real_T>(nDepIneq));
+    tol = std::fmin(1.4901161193847656E-8, 2.2204460492503131E-15 *
+                    static_cast<real_T>(nDepIneq));
     for (nDepIneq = 0; nDepIneq < nFixedConstr; nDepIneq++) {
       qrmanager->jpvt.data[nDepIneq] = 1;
     }
@@ -5086,8 +5042,8 @@ static void root_model_RemoveDependentIneq_(s_Jrk1gF3jitJmkPBgphEknE_root_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static int32_T root_model_rank(const real_T qrmanager_QR_data[], const int32_T
-  qrmanager_QR_size[2], int32_T qrmanager_mrows, int32_T qrmanager_ncols)
+int32_T root_model::root_model_rank(const real_T qrmanager_QR_data[], const
+  int32_T qrmanager_QR_size[2], int32_T qrmanager_mrows, int32_T qrmanager_ncols)
 {
   int32_T minmn;
   int32_T r;
@@ -5119,7 +5075,7 @@ static int32_T root_model_rank(const real_T qrmanager_QR_data[], const int32_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_xgemv_i(int32_T m, int32_T n, const real_T A_data[],
+void root_model::root_model_xgemv_i(int32_T m, int32_T n, const real_T A_data[],
   int32_T lda, const real_T x_data[], real_T y_data[])
 {
   if (n != 0) {
@@ -5158,8 +5114,8 @@ static void root_model_xgemv_i(int32_T m, int32_T n, const real_T A_data[],
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static real_T root_m_maxConstraintViolation_i(s_Jrk1gF3jitJmkPBgphEknE_root_T
-  *obj, const real_T x_data[])
+real_T root_model::root_m_maxConstraintViolation_i
+  (s_Jrk1gF3jitJmkPBgphEknE_root_T *obj, const real_T x_data[])
 {
   real_T obj_maxConstrWorkspace;
   real_T v;
@@ -5249,7 +5205,7 @@ static real_T root_m_maxConstraintViolation_i(s_Jrk1gF3jitJmkPBgphEknE_root_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_xgemv_it(int32_T m, int32_T n, const real_T A_data[],
+void root_model::root_model_xgemv_it(int32_T m, int32_T n, const real_T A_data[],
   int32_T lda, const real_T x_data[], int32_T ix0, real_T y_data[])
 {
   if (n != 0) {
@@ -5288,8 +5244,8 @@ static void root_model_xgemv_it(int32_T m, int32_T n, const real_T A_data[],
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static real_T root__maxConstraintViolation_i0(s_Jrk1gF3jitJmkPBgphEknE_root_T
-  *obj, const real_T x_data[], int32_T ix0)
+real_T root_model::root__maxConstraintViolation_i0
+  (s_Jrk1gF3jitJmkPBgphEknE_root_T *obj, const real_T x_data[], int32_T ix0)
 {
   real_T obj_maxConstrWorkspace;
   real_T v;
@@ -5380,8 +5336,8 @@ static real_T root__maxConstraintViolation_i0(s_Jrk1gF3jitJmkPBgphEknE_root_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static boolean_T root_mo_feasibleX0ForWorkingSet(real_T workspace_data[], const
-  int32_T workspace_size[2], real_T xCurrent_data[],
+boolean_T root_model::root_mo_feasibleX0ForWorkingSet(real_T workspace_data[],
+  const int32_T workspace_size[2], real_T xCurrent_data[],
   s_Jrk1gF3jitJmkPBgphEknE_root_T *workingset, s_Pct27jAhkqchx6iRs2zKpD_root_T
   *qrmanager)
 {
@@ -5679,7 +5635,7 @@ static boolean_T root_mo_feasibleX0ForWorkingSet(real_T workspace_data[], const
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_mod_RemoveDependentIneq__h(s_Jrk1gF3jitJmkPBgphEknE_root_T
+void root_model::root_mod_RemoveDependentIneq__h(s_Jrk1gF3jitJmkPBgphEknE_root_T
   *workingset, s_Pct27jAhkqchx6iRs2zKpD_root_T *qrmanager,
   s_3DDm1jFKx2gyv5YUdHGqJC_root_T *memspace)
 {
@@ -5764,7 +5720,7 @@ static void root_mod_RemoveDependentIneq__h(s_Jrk1gF3jitJmkPBgphEknE_root_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_xgemv_it3(int32_T m, int32_T n, const real_T A_data[],
+void root_model::root_model_xgemv_it3(int32_T m, int32_T n, const real_T A_data[],
   int32_T lda, const real_T x_data[], real_T y_data[])
 {
   if (n != 0) {
@@ -5803,8 +5759,8 @@ static void root_model_xgemv_it3(int32_T m, int32_T n, const real_T A_data[],
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static real_T maxConstraintViolation_AMats_no(s_Jrk1gF3jitJmkPBgphEknE_root_T
-  *obj, const real_T x_data[])
+real_T root_model::maxConstraintViolation_AMats_no
+  (s_Jrk1gF3jitJmkPBgphEknE_root_T *obj, const real_T x_data[])
 {
   real_T v;
   int32_T k;
@@ -5837,8 +5793,8 @@ static real_T maxConstraintViolation_AMats_no(s_Jrk1gF3jitJmkPBgphEknE_root_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static real_T maxConstraintViolation_AMats_re(s_Jrk1gF3jitJmkPBgphEknE_root_T
-  *obj, const real_T x_data[])
+real_T root_model::maxConstraintViolation_AMats_re
+  (s_Jrk1gF3jitJmkPBgphEknE_root_T *obj, const real_T x_data[])
 {
   real_T obj_maxConstrWorkspace;
   real_T v;
@@ -5877,8 +5833,8 @@ static real_T maxConstraintViolation_AMats_re(s_Jrk1gF3jitJmkPBgphEknE_root_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static real_T root_maxConstraintViolation_i0u(s_Jrk1gF3jitJmkPBgphEknE_root_T
-  *obj, const real_T x_data[])
+real_T root_model::root_maxConstraintViolation_i0u
+  (s_Jrk1gF3jitJmkPBgphEknE_root_T *obj, const real_T x_data[])
 {
   real_T v;
   int32_T b;
@@ -5917,7 +5873,7 @@ static real_T root_maxConstraintViolation_i0u(s_Jrk1gF3jitJmkPBgphEknE_root_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_PresolveWorkingSet(s_7iu1rzNoAoHigERqeOFm2G_root_T
+void root_model::root_model_PresolveWorkingSet(s_7iu1rzNoAoHigERqeOFm2G_root_T
   *solution, s_3DDm1jFKx2gyv5YUdHGqJC_root_T *memspace,
   s_Jrk1gF3jitJmkPBgphEknE_root_T *workingset, s_Pct27jAhkqchx6iRs2zKpD_root_T
   *qrmanager)
@@ -5978,8 +5934,8 @@ static void root_model_PresolveWorkingSet(s_7iu1rzNoAoHigERqeOFm2G_root_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_xgemv_it3a(int32_T m, int32_T n, const real_T A[31329],
-  int32_T lda, const real_T x_data[], real_T y_data[])
+void root_model::root_model_xgemv_it3a(int32_T m, int32_T n, const real_T A
+  [31329], int32_T lda, const real_T x_data[], real_T y_data[])
 {
   if ((m != 0) && (n != 0)) {
     int32_T b;
@@ -6005,8 +5961,8 @@ static void root_model_xgemv_it3a(int32_T m, int32_T n, const real_T A[31329],
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_computeGrad_StoreHx(s_1ECtvwuWb7KTJMqOG7pbsD_root_T *obj,
-  const real_T H[31329], const real_T f_data[], const real_T x_data[])
+void root_model::root_model_computeGrad_StoreHx(s_1ECtvwuWb7KTJMqOG7pbsD_root_T *
+  obj, const real_T H[31329], const real_T f_data[], const real_T x_data[])
 {
   __m128d tmp_0;
   int32_T i;
@@ -6132,7 +6088,7 @@ static void root_model_computeGrad_StoreHx(s_1ECtvwuWb7KTJMqOG7pbsD_root_T *obj,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static real_T root_model_computeFval_ReuseHx(const
+real_T root_model::root_model_computeFval_ReuseHx(const
   s_1ECtvwuWb7KTJMqOG7pbsD_root_T *obj, real_T workspace_data[], const real_T
   f_data[], const real_T x_data[])
 {
@@ -6249,8 +6205,8 @@ static real_T root_model_computeFval_ReuseHx(const
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_xgeqrf(real_T A_data[], const int32_T A_size[2], int32_T
-  m, int32_T n, real_T tau_data[], int32_T tau_size[1])
+void root_model::root_model_xgeqrf(real_T A_data[], const int32_T A_size[2],
+  int32_T m, int32_T n, real_T tau_data[], int32_T tau_size[1])
 {
   int32_T minmana;
   int32_T minmn;
@@ -6277,7 +6233,7 @@ static void root_model_xgeqrf(real_T A_data[], const int32_T A_size[2], int32_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_factorQR(s_Pct27jAhkqchx6iRs2zKpD_root_T *obj, const
+void root_model::root_model_factorQR(s_Pct27jAhkqchx6iRs2zKpD_root_T *obj, const
   real_T A_data[], int32_T mrows, int32_T ncols, int32_T ldA)
 {
   int32_T b;
@@ -6337,8 +6293,8 @@ static void root_model_factorQR(s_Pct27jAhkqchx6iRs2zKpD_root_T *obj, const
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_squareQ_appendCol(s_Pct27jAhkqchx6iRs2zKpD_root_T *obj,
-  const real_T vec_data[], int32_T iv0)
+void root_model::root_model_squareQ_appendCol(s_Pct27jAhkqchx6iRs2zKpD_root_T
+  *obj, const real_T vec_data[], int32_T iv0)
 {
   real_T b_c;
   real_T s;
@@ -6402,8 +6358,8 @@ static void root_model_squareQ_appendCol(s_Pct27jAhkqchx6iRs2zKpD_root_T *obj,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_deleteColMoveEnd(s_Pct27jAhkqchx6iRs2zKpD_root_T *obj,
-  int32_T idx)
+void root_model::root_model_deleteColMoveEnd(s_Pct27jAhkqchx6iRs2zKpD_root_T
+  *obj, int32_T idx)
 {
   real_T b_s;
   real_T b_temp;
@@ -6530,7 +6486,7 @@ static void root_model_deleteColMoveEnd(s_Pct27jAhkqchx6iRs2zKpD_root_T *obj,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static boolean_T root_model_strcmp(const char_T a[7])
+boolean_T root_model::root_model_strcmp(const char_T a[7])
 {
   int32_T ret;
   static const char_T b_b[7]{ 'f', 'm', 'i', 'n', 'c', 'o', 'n' };
@@ -6540,8 +6496,8 @@ static boolean_T root_model_strcmp(const char_T a[7])
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_xgemm(int32_T m, int32_T n, int32_T k, const real_T A
-  [31329], int32_T lda, const real_T B_data[], int32_T ib0, int32_T ldb, real_T
+void root_model::root_model_xgemm(int32_T m, int32_T n, int32_T k, const real_T
+  A[31329], int32_T lda, const real_T B_data[], int32_T ib0, int32_T ldb, real_T
   C_data[], int32_T ldc)
 {
   if ((m != 0) && (n != 0)) {
@@ -6589,9 +6545,9 @@ static void root_model_xgemm(int32_T m, int32_T n, int32_T k, const real_T A
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_xgemm_h(int32_T m, int32_T n, int32_T k, const real_T
-  A_data[], int32_T ia0, int32_T lda, const real_T B_data[], int32_T ldb, real_T
-  C_data[], int32_T ldc)
+void root_model::root_model_xgemm_h(int32_T m, int32_T n, int32_T k, const
+  real_T A_data[], int32_T ia0, int32_T lda, const real_T B_data[], int32_T ldb,
+  real_T C_data[], int32_T ldc)
 {
   if ((m != 0) && (n != 0)) {
     int32_T b;
@@ -6628,7 +6584,7 @@ static void root_model_xgemm_h(int32_T m, int32_T n, int32_T k, const real_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_fullColLDL2_(s_mdyENYu4oaiCttMAPwg9iE_root_T *obj,
+void root_model::root_model_fullColLDL2_(s_mdyENYu4oaiCttMAPwg9iE_root_T *obj,
   int32_T LD_offset, int32_T NColsRemain)
 {
   int32_T LDimSizeP1;
@@ -6695,7 +6651,7 @@ static void root_model_fullColLDL2_(s_mdyENYu4oaiCttMAPwg9iE_root_T *obj,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_partialColLDL3_(s_mdyENYu4oaiCttMAPwg9iE_root_T *obj,
+void root_model::root_model_partialColLDL3_(s_mdyENYu4oaiCttMAPwg9iE_root_T *obj,
   int32_T LD_offset, int32_T NColsRemain)
 {
   __m128d tmp;
@@ -6832,7 +6788,7 @@ static void root_model_partialColLDL3_(s_mdyENYu4oaiCttMAPwg9iE_root_T *obj,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static int32_T root_model_xpotrf(int32_T n, real_T A_data[], int32_T lda)
+int32_T root_model::root_model_xpotrf(int32_T n, real_T A_data[], int32_T lda)
 {
   int32_T b_j;
   int32_T info;
@@ -6904,8 +6860,8 @@ static int32_T root_model_xpotrf(int32_T n, real_T A_data[], int32_T lda)
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_xgemv_it3ax(int32_T m, int32_T n, const real_T A_data[],
-  int32_T ia0, int32_T lda, const real_T x_data[], real_T y_data[])
+void root_model::root_model_xgemv_it3ax(int32_T m, int32_T n, const real_T
+  A_data[], int32_T ia0, int32_T lda, const real_T x_data[], real_T y_data[])
 {
   if (m != 0) {
     int32_T b;
@@ -6928,7 +6884,7 @@ static void root_model_xgemv_it3ax(int32_T m, int32_T n, const real_T A_data[],
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_factor_j(s_mdyENYu4oaiCttMAPwg9iE_root_T *obj, const
+void root_model::root_model_factor_j(s_mdyENYu4oaiCttMAPwg9iE_root_T *obj, const
   real_T A[31329], int32_T ndims, int32_T ldA)
 {
   real_T s;
@@ -7006,8 +6962,8 @@ static void root_model_factor_j(s_mdyENYu4oaiCttMAPwg9iE_root_T *obj, const
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_factor(s_mdyENYu4oaiCttMAPwg9iE_root_T *obj, const real_T
-  A[31329], int32_T ndims, int32_T ldA)
+void root_model::root_model_factor(s_mdyENYu4oaiCttMAPwg9iE_root_T *obj, const
+  real_T A[31329], int32_T ndims, int32_T ldA)
 {
   int32_T b_k;
   int32_T idx;
@@ -7026,7 +6982,7 @@ static void root_model_factor(s_mdyENYu4oaiCttMAPwg9iE_root_T *obj, const real_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_solve_o(const s_mdyENYu4oaiCttMAPwg9iE_root_T *obj,
+void root_model::root_model_solve_o(const s_mdyENYu4oaiCttMAPwg9iE_root_T *obj,
   real_T rhs_data[])
 {
   int32_T jjA;
@@ -7065,8 +7021,8 @@ static void root_model_solve_o(const s_mdyENYu4oaiCttMAPwg9iE_root_T *obj,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_solve(const s_mdyENYu4oaiCttMAPwg9iE_root_T *obj, real_T
-  rhs_data[])
+void root_model::root_model_solve(const s_mdyENYu4oaiCttMAPwg9iE_root_T *obj,
+  real_T rhs_data[])
 {
   int32_T jA;
   int32_T n;
@@ -7099,7 +7055,7 @@ static void root_model_solve(const s_mdyENYu4oaiCttMAPwg9iE_root_T *obj, real_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_compute_deltax(const real_T H[31329],
+void root_model::root_model_compute_deltax(const real_T H[31329],
   s_7iu1rzNoAoHigERqeOFm2G_root_T *solution, s_3DDm1jFKx2gyv5YUdHGqJC_root_T
   *memspace, const s_Pct27jAhkqchx6iRs2zKpD_root_T *qrmanager,
   s_mdyENYu4oaiCttMAPwg9iE_root_T *cholmanager, const
@@ -7402,7 +7358,7 @@ static void root_model_compute_deltax(const real_T H[31329],
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static real_T root_model_xnrm2_ob(int32_T n, const real_T x_data[])
+real_T root_model::root_model_xnrm2_ob(int32_T n, const real_T x_data[])
 {
   real_T y;
   y = 0.0;
@@ -7453,8 +7409,8 @@ static real_T root_model_xnrm2_ob(int32_T n, const real_T x_data[])
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_xgemv_it3axg(int32_T m, int32_T n, const real_T A_data[],
-  int32_T lda, const real_T x_data[], real_T y_data[])
+void root_model::root_model_xgemv_it3axg(int32_T m, int32_T n, const real_T
+  A_data[], int32_T lda, const real_T x_data[], real_T y_data[])
 {
   if (n != 0) {
     int32_T b;
@@ -7491,7 +7447,7 @@ static void root_model_xgemv_it3axg(int32_T m, int32_T n, const real_T A_data[],
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_feasibleratiotest(const real_T solution_xstar_data[],
+void root_model::root_model_feasibleratiotest(const real_T solution_xstar_data[],
   const real_T solution_searchDir_data[], real_T workspace_data[], const int32_T
   workspace_size[2], int32_T workingset_nVar, int32_T workingset_ldA, const
   real_T workingset_Aineq_data[], const real_T workingset_bineq_data[], const
@@ -7614,7 +7570,7 @@ static void root_model_feasibleratiotest(const real_T solution_xstar_data[],
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_m_checkUnboundedOrIllPosed(s_7iu1rzNoAoHigERqeOFm2G_root_T
+void root_model::root_m_checkUnboundedOrIllPosed(s_7iu1rzNoAoHigERqeOFm2G_root_T
   *solution, const s_1ECtvwuWb7KTJMqOG7pbsD_root_T *objective)
 {
   if (objective->objtype == 5) {
@@ -7628,8 +7584,8 @@ static void root_m_checkUnboundedOrIllPosed(s_7iu1rzNoAoHigERqeOFm2G_root_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_addBoundToActiveSetMatrix_(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj,
-  int32_T TYPE, int32_T idx_local)
+void root_model::root_addBoundToActiveSetMatrix_(s_Jrk1gF3jitJmkPBgphEknE_root_T
+  *obj, int32_T TYPE, int32_T idx_local)
 {
   int32_T colOffset;
   int32_T idx_bnd_local;
@@ -7674,7 +7630,7 @@ static void root_addBoundToActiveSetMatrix_(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_addAineqConstr(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj,
+void root_model::root_model_addAineqConstr(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj,
   int32_T idx_local)
 {
   int32_T b;
@@ -7696,7 +7652,7 @@ static void root_model_addAineqConstr(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_compute_lambda(real_T workspace_data[],
+void root_model::root_model_compute_lambda(real_T workspace_data[],
   s_7iu1rzNoAoHigERqeOFm2G_root_T *solution, const
   s_1ECtvwuWb7KTJMqOG7pbsD_root_T *objective, const
   s_Pct27jAhkqchx6iRs2zKpD_root_T *qrmanager)
@@ -7717,8 +7673,8 @@ static void root_model_compute_lambda(real_T workspace_data[],
         b_idx = qrmanager->ncols;
       }
 
-      c = std::fmin(1.4901161193847656E-8, 2.2204460492503131E-15 * static_cast<
-                    real_T>(b_idx));
+      c = std::fmin(1.4901161193847656E-8, 2.2204460492503131E-15 *
+                    static_cast<real_T>(b_idx));
       nonDegenerate = ((qrmanager->mrows > 0) && (qrmanager->ncols > 0));
       if (nonDegenerate) {
         boolean_T guard2;
@@ -7814,8 +7770,8 @@ static void root_model_compute_lambda(real_T workspace_data[],
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_checkStoppingAndUpdateFval(int32_T *activeSetChangeID, const
-  real_T f_data[], s_7iu1rzNoAoHigERqeOFm2G_root_T *solution,
+void root_model::root_checkStoppingAndUpdateFval(int32_T *activeSetChangeID,
+  const real_T f_data[], s_7iu1rzNoAoHigERqeOFm2G_root_T *solution,
   s_3DDm1jFKx2gyv5YUdHGqJC_root_T *memspace, const
   s_1ECtvwuWb7KTJMqOG7pbsD_root_T *objective, s_Jrk1gF3jitJmkPBgphEknE_root_T
   *workingset, s_Pct27jAhkqchx6iRs2zKpD_root_T *qrmanager, int32_T
@@ -7876,7 +7832,7 @@ static void root_checkStoppingAndUpdateFval(int32_T *activeSetChangeID, const
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_iterate(const real_T H[31329], const real_T f_data[],
+void root_model::root_model_iterate(const real_T H[31329], const real_T f_data[],
   s_7iu1rzNoAoHigERqeOFm2G_root_T *solution, s_3DDm1jFKx2gyv5YUdHGqJC_root_T
   *memspace, s_Jrk1gF3jitJmkPBgphEknE_root_T *workingset,
   s_Pct27jAhkqchx6iRs2zKpD_root_T *qrmanager, s_mdyENYu4oaiCttMAPwg9iE_root_T
@@ -8077,7 +8033,7 @@ static void root_model_iterate(const real_T H[31329], const real_T f_data[],
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_phaseone(const real_T H[31329], const real_T f_data[],
+void root_model::root_model_phaseone(const real_T H[31329], const real_T f_data[],
   s_7iu1rzNoAoHigERqeOFm2G_root_T *solution, s_3DDm1jFKx2gyv5YUdHGqJC_root_T
   *memspace, s_Jrk1gF3jitJmkPBgphEknE_root_T *workingset,
   s_Pct27jAhkqchx6iRs2zKpD_root_T *qrmanager, s_mdyENYu4oaiCttMAPwg9iE_root_T
@@ -8155,7 +8111,7 @@ static void root_model_phaseone(const real_T H[31329], const real_T f_data[],
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void ro_checkStoppingAndUpdateFval_j(int32_T *activeSetChangeID,
+void root_model::ro_checkStoppingAndUpdateFval_j(int32_T *activeSetChangeID,
   s_7iu1rzNoAoHigERqeOFm2G_root_T *solution, s_3DDm1jFKx2gyv5YUdHGqJC_root_T
   *memspace, const s_1ECtvwuWb7KTJMqOG7pbsD_root_T *objective,
   s_Jrk1gF3jitJmkPBgphEknE_root_T *workingset, s_Pct27jAhkqchx6iRs2zKpD_root_T
@@ -8211,12 +8167,13 @@ static void ro_checkStoppingAndUpdateFval_j(int32_T *activeSetChangeID,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_iterate_j(const real_T H[31329], const real_T f_data[],
-  s_7iu1rzNoAoHigERqeOFm2G_root_T *solution, s_3DDm1jFKx2gyv5YUdHGqJC_root_T
-  *memspace, s_Jrk1gF3jitJmkPBgphEknE_root_T *workingset,
-  s_Pct27jAhkqchx6iRs2zKpD_root_T *qrmanager, s_mdyENYu4oaiCttMAPwg9iE_root_T
-  *cholmanager, s_1ECtvwuWb7KTJMqOG7pbsD_root_T *objective, const char_T
-  options_SolverName[7], int32_T runTimeOptions_MaxIterations)
+void root_model::root_model_iterate_j(const real_T H[31329], const real_T
+  f_data[], s_7iu1rzNoAoHigERqeOFm2G_root_T *solution,
+  s_3DDm1jFKx2gyv5YUdHGqJC_root_T *memspace, s_Jrk1gF3jitJmkPBgphEknE_root_T
+  *workingset, s_Pct27jAhkqchx6iRs2zKpD_root_T *qrmanager,
+  s_mdyENYu4oaiCttMAPwg9iE_root_T *cholmanager, s_1ECtvwuWb7KTJMqOG7pbsD_root_T *
+  objective, const char_T options_SolverName[7], int32_T
+  runTimeOptions_MaxIterations)
 {
   __m128d tmp;
   __m128d tmp_0;
@@ -8418,9 +8375,9 @@ static void root_model_iterate_j(const real_T H[31329], const real_T f_data[],
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_linearForm_(boolean_T obj_hasLinear, int32_T obj_nvar,
-  real_T workspace_data[], const real_T H[31329], const real_T f_data[], const
-  real_T x_data[])
+void root_model::root_model_linearForm_(boolean_T obj_hasLinear, int32_T
+  obj_nvar, real_T workspace_data[], const real_T H[31329], const real_T f_data[],
+  const real_T x_data[])
 {
   int32_T beta1;
   beta1 = 0;
@@ -8460,7 +8417,7 @@ static void root_model_linearForm_(boolean_T obj_hasLinear, int32_T obj_nvar,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_driver_i(const real_T H[31329], const real_T f_data[],
+void root_model::root_model_driver_i(const real_T H[31329], const real_T f_data[],
   s_7iu1rzNoAoHigERqeOFm2G_root_T *solution, s_3DDm1jFKx2gyv5YUdHGqJC_root_T
   *memspace, s_Jrk1gF3jitJmkPBgphEknE_root_T *workingset,
   s_Pct27jAhkqchx6iRs2zKpD_root_T *qrmanager, s_mdyENYu4oaiCttMAPwg9iE_root_T
@@ -8618,7 +8575,7 @@ static void root_model_driver_i(const real_T H[31329], const real_T f_data[],
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_addAeqConstr(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj,
+void root_model::root_model_addAeqConstr(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj,
   int32_T idx_local)
 {
   int32_T totalEq;
@@ -8670,7 +8627,7 @@ static void root_model_addAeqConstr(s_Jrk1gF3jitJmkPBgphEknE_root_T *obj,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static boolean_T root_model_soc(const real_T Hessian[31329], const real_T
+boolean_T root_model::root_model_soc(const real_T Hessian[31329], const real_T
   grad_data[], s_7iu1rzNoAoHigERqeOFm2G_root_T *TrialState,
   s_3DDm1jFKx2gyv5YUdHGqJC_root_T *memspace, s_Jrk1gF3jitJmkPBgphEknE_root_T
   *WorkingSet, s_Pct27jAhkqchx6iRs2zKpD_root_T *QRManager,
@@ -8897,7 +8854,7 @@ static boolean_T root_model_soc(const real_T Hessian[31329], const real_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static real_T root_mod_maxConstraintViolation(const
+real_T root_model::root_mod_maxConstraintViolation(const
   s_Jrk1gF3jitJmkPBgphEknE_root_T *obj, const real_T x_data[])
 {
   real_T v;
@@ -8942,7 +8899,7 @@ static real_T root_mod_maxConstraintViolation(const
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_normal(const real_T Hessian[31329], const real_T
+void root_model::root_model_normal(const real_T Hessian[31329], const real_T
   grad_data[], s_7iu1rzNoAoHigERqeOFm2G_root_T *TrialState,
   sG8JZ69axY52WWR6RKyApQC_root__T *MeritFunction,
   s_3DDm1jFKx2gyv5YUdHGqJC_root_T *memspace, s_Jrk1gF3jitJmkPBgphEknE_root_T
@@ -9044,7 +9001,7 @@ static void root_model_normal(const real_T Hessian[31329], const real_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_relaxed(const real_T Hessian[31329], const real_T
+void root_model::root_model_relaxed(const real_T Hessian[31329], const real_T
   grad_data[], s_7iu1rzNoAoHigERqeOFm2G_root_T *TrialState,
   sG8JZ69axY52WWR6RKyApQC_root__T *MeritFunction,
   s_3DDm1jFKx2gyv5YUdHGqJC_root_T *memspace, s_Jrk1gF3jitJmkPBgphEknE_root_T
@@ -9334,8 +9291,8 @@ static void root_model_relaxed(const real_T Hessian[31329], const real_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_step_k(s7RdrPWkr8UPAUyTdDJkLaG_root__T *stepFlags, real_T
-  Hessian[31329], const real_T lb[177], s_7iu1rzNoAoHigERqeOFm2G_root_T
+void root_model::root_model_step_k(s7RdrPWkr8UPAUyTdDJkLaG_root__T *stepFlags,
+  real_T Hessian[31329], const real_T lb[177], s_7iu1rzNoAoHigERqeOFm2G_root_T
   *TrialState, sG8JZ69axY52WWR6RKyApQC_root__T *MeritFunction,
   s_3DDm1jFKx2gyv5YUdHGqJC_root_T *memspace, s_Jrk1gF3jitJmkPBgphEknE_root_T
   *WorkingSet, s_Pct27jAhkqchx6iRs2zKpD_root_T *QRManager,
@@ -9518,9 +9475,9 @@ static void root_model_step_k(s7RdrPWkr8UPAUyTdDJkLaG_root__T *stepFlags, real_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_stateEvolution_c(const real_T X[187], const real_T U[33],
-  real_T parameters_f1, real_T parameters_f2, real_T parameters_f3, const real_T
-  parameters_f4[9], real_T parameters_f5, real_T c[170])
+void root_model::root_model_stateEvolution_c(const real_T X[187], const real_T
+  U[33], real_T parameters_f1, real_T parameters_f2, real_T parameters_f3, const
+  real_T parameters_f4[9], real_T parameters_f5, real_T c[170])
 {
   __m128d tmp_0;
   real_T b_X[187];
@@ -9573,9 +9530,9 @@ static void root_model_stateEvolution_c(const real_T X[187], const real_T U[33],
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_outputBounds_n(const real_T runtimedata_OutputMin[130],
-  const real_T runtimedata_OutputMax[130], const real_T X[187], real_T e, real_T
-  c_data[], int32_T c_size[2])
+void root_model::root_model_outputBounds_n(const real_T runtimedata_OutputMin
+  [130], const real_T runtimedata_OutputMax[130], const real_T X[187], real_T e,
+  real_T c_data[], int32_T c_size[2])
 {
   __m128d tmp_1;
   real_T b_c[260];
@@ -9728,7 +9685,7 @@ static void root_model_outputBounds_n(const real_T runtimedata_OutputMin[130],
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_c4_mpclib_anonFcn2_n(const real_T runtimedata_x[17],
+void root_model::root_model_c4_mpclib_anonFcn2_n(const real_T runtimedata_x[17],
   const real_T runtimedata_OutputMin[130], const real_T runtimedata_OutputMax
   [130], real_T runtimedata_Parameters_f1, real_T runtimedata_Parameters_f2,
   real_T runtimedata_Parameters_f3, const real_T runtimedata_Parameters_f4[9],
@@ -9769,11 +9726,12 @@ static void root_model_c4_mpclib_anonFcn2_n(const real_T runtimedata_x[17],
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_evalObjAndConstr(int32_T obj_next_next_next_next_next_b_,
-  const s_WBLIzjzqQS4bg0a8DMrwYD_root_T *obj_next_next_next_next_next_ne, const
-  s_pVH6DktXFODPXN9VaZK2hE_root_T *obj_next_next_next_next_next__0, const real_T
-  x[177], real_T Cineq_workspace_data[], int32_T ineq0, real_T Ceq_workspace[170],
-  real_T *fval, int32_T *status)
+void root_model::root_model_evalObjAndConstr(int32_T
+  obj_next_next_next_next_next_b_, const s_WBLIzjzqQS4bg0a8DMrwYD_root_T
+  *obj_next_next_next_next_next_ne, const s_pVH6DktXFODPXN9VaZK2hE_root_T
+  *obj_next_next_next_next_next__0, const real_T x[177], real_T
+  Cineq_workspace_data[], int32_T ineq0, real_T Ceq_workspace[170], real_T *fval,
+  int32_T *status)
 {
   __m128d tmp_1;
   __m128i tmp_0;
@@ -9929,9 +9887,10 @@ static void root_model_evalObjAndConstr(int32_T obj_next_next_next_next_next_b_,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_mod_computeLinearResiduals(const real_T x[177], int32_T nVar,
-  real_T workspaceIneq_data[], const int32_T workspaceIneq_size[1], int32_T
-  mLinIneq, const real_T AineqT_data[], const real_T bineq_data[], int32_T ldAi)
+void root_model::root_mod_computeLinearResiduals(const real_T x[177], int32_T
+  nVar, real_T workspaceIneq_data[], const int32_T workspaceIneq_size[1],
+  int32_T mLinIneq, const real_T AineqT_data[], const real_T bineq_data[],
+  int32_T ldAi)
 {
   if (mLinIneq > 0) {
     int32_T loop_ub;
@@ -9981,8 +9940,8 @@ static void root_mod_computeLinearResiduals(const real_T x[177], int32_T nVar,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static real_T root_model_computeMeritFcn(real_T obj_penaltyParam, real_T fval,
-  const real_T Cineq_workspace_data[], int32_T mIneq, const real_T
+real_T root_model::root_model_computeMeritFcn(real_T obj_penaltyParam, real_T
+  fval, const real_T Cineq_workspace_data[], int32_T mIneq, const real_T
   Ceq_workspace[170], boolean_T evalWellDefined)
 {
   real_T val;
@@ -10014,7 +9973,7 @@ static real_T root_model_computeMeritFcn(real_T obj_penaltyParam, real_T fval,
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_linesearch(boolean_T *evalWellDefined, const real_T
+void root_model::root_model_linesearch(boolean_T *evalWellDefined, const real_T
   bineq_data[], int32_T WorkingSet_nVar, int32_T WorkingSet_ldA, const real_T
   WorkingSet_Aineq_data[], s_7iu1rzNoAoHigERqeOFm2G_root_T *TrialState, real_T
   MeritFunction_penaltyParam, real_T MeritFunction_phi, real_T
@@ -10136,14 +10095,15 @@ static void root_model_linesearch(boolean_T *evalWellDefined, const real_T
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_driver(const real_T bineq_data[], const real_T lb[177],
-  s_7iu1rzNoAoHigERqeOFm2G_root_T *TrialState, sG8JZ69axY52WWR6RKyApQC_root__T
-  *MeritFunction, const coder_internal_stickyStruct_2_T *FcnEvaluator,
-  s_3DDm1jFKx2gyv5YUdHGqJC_root_T *memspace, s_Jrk1gF3jitJmkPBgphEknE_root_T
-  *WorkingSet, s_Pct27jAhkqchx6iRs2zKpD_root_T *QRManager,
-  s_mdyENYu4oaiCttMAPwg9iE_root_T *CholManager, s_1ECtvwuWb7KTJMqOG7pbsD_root_T *
-  QPObjective, const int32_T fscales_lineq_constraint_size[1], const int32_T
-  fscales_cineq_constraint_size[1], real_T Hessian[31329])
+void root_model::root_model_driver(const real_T bineq_data[], const real_T lb
+  [177], s_7iu1rzNoAoHigERqeOFm2G_root_T *TrialState,
+  sG8JZ69axY52WWR6RKyApQC_root__T *MeritFunction, const
+  coder_internal_stickyStruct_2_T *FcnEvaluator, s_3DDm1jFKx2gyv5YUdHGqJC_root_T
+  *memspace, s_Jrk1gF3jitJmkPBgphEknE_root_T *WorkingSet,
+  s_Pct27jAhkqchx6iRs2zKpD_root_T *QRManager, s_mdyENYu4oaiCttMAPwg9iE_root_T
+  *CholManager, s_1ECtvwuWb7KTJMqOG7pbsD_root_T *QPObjective, const int32_T
+  fscales_lineq_constraint_size[1], const int32_T fscales_cineq_constraint_size
+  [1], real_T Hessian[31329])
 {
   __m128d tmp;
   __m128d tmp_0;
@@ -11711,7 +11671,7 @@ static void root_model_driver(const real_T bineq_data[], const real_T lb[177],
 }
 
 /* Function for MATLAB Function: '<S12>/NLMPC' */
-static void root_model_fmincon(const s_WBLIzjzqQS4bg0a8DMrwYD_root_T
+void root_model::root_model_fmincon(const s_WBLIzjzqQS4bg0a8DMrwYD_root_T
   *fun_workspace_runtimedata, const scI1GGq4Cpah2bZUcB8s80D_root__T
   *fun_workspace_userdata, const real_T x0[177], const real_T Aineq_data[],
   const real_T bineq_data[], const int32_T bineq_size[1], const real_T lb[177],
@@ -12097,7 +12057,8 @@ static void root_model_fmincon(const s_WBLIzjzqQS4bg0a8DMrwYD_root_T
   output->firstorderopt = MeritFunction.firstOrderOpt;
 }
 
-static real_T root_model_xnrm2_lx(int32_T n, const real_T x[578], int32_T ix0)
+real_T root_model::root_model_xnrm2_lx(int32_T n, const real_T x[578], int32_T
+  ix0)
 {
   real_T y;
 
@@ -12152,7 +12113,7 @@ static real_T root_model_xnrm2_lx(int32_T n, const real_T x[578], int32_T ix0)
   return y;
 }
 
-static void root_model_qrFactor_lx(const real_T A[289], const real_T S[289],
+void root_model::root_model_qrFactor_lx(const real_T A[289], const real_T S[289],
   const real_T Ns[289], real_T b_S[289])
 {
   __m128d tmp;
@@ -12373,7 +12334,7 @@ static void root_model_qrFactor_lx(const real_T A[289], const real_T S[289],
 }
 
 /* Model step function */
-void root_model_step(void)
+void root_model::step()
 {
   __m128d tmp_7;
   __m128d tmp_8;
@@ -12462,16 +12423,15 @@ void root_model_step(void)
 
   int32_T A_size[2];
   int32_T B_size[1];
-  if (rtmIsMajorTimeStep(root_model_M)) {
+  if (rtmIsMajorTimeStep((&root_model_M))) {
     /* set solver stop time */
-    rtsiSetSolverStopTime(&root_model_M->solverInfo,
-                          ((root_model_M->Timing.clockTick0+1)*
-      root_model_M->Timing.stepSize0));
+    rtsiSetSolverStopTime(&(&root_model_M)->solverInfo,(((&root_model_M)
+      ->Timing.clockTick0+1)*(&root_model_M)->Timing.stepSize0));
   }                                    /* end MajorTimeStep */
 
   /* Update absolute time of base rate at minor time step */
-  if (rtmIsMinorTimeStep(root_model_M)) {
-    root_model_M->Timing.t[0] = rtsiGetT(&root_model_M->solverInfo);
+  if (rtmIsMinorTimeStep((&root_model_M))) {
+    (&root_model_M)->Timing.t[0] = rtsiGetT(&(&root_model_M)->solverInfo);
   }
 
   /* EOM6DOFBodyQuat: '<Root>/6DOF (Quaternion)' incorporates:
@@ -12554,7 +12514,7 @@ void root_model_step(void)
   /* Checks_PiecewiseLinearBound: '<S1>/PWLCheck' incorporates:
    *  Checks_PiecewiseLinearBound: '<S2>/PWLCheck'
    */
-  rtb_Product2_ki = root_model_M->Timing.t[0];
+  rtb_Product2_ki = (&root_model_M)->Timing.t[0];
   if ((rtb_Product2_ki >= 0.0) && (rtb_Product2_ki <= 5.0)) {
     relDist = rtb_Product2_ki / 5.0;
 
@@ -12575,7 +12535,7 @@ void root_model_step(void)
       relDist) * 1.01 + relDist * 1.01)) && root_model_B.PWLCheck);
   }
 
-  tmp = rtmIsMajorTimeStep(root_model_M);
+  tmp = rtmIsMajorTimeStep((&root_model_M));
   if (tmp) {
     /* Assertion: '<S1>/Assertion' */
     utAssert(root_model_B.PWLCheck);
@@ -13339,8 +13299,8 @@ void root_model_step(void)
     rtb_Product8) * 2.0 * 0.0) + ((0.5 - rtb_Product8 * rtb_Product8) -
     rtb_Product2_ki * rtb_Product2_ki) * 2.0 * -11.83086) +
     root_model_B.prop_force[2];
-  if (rtmIsMajorTimeStep(root_model_M)) {
-    if (rtmIsMajorTimeStep(root_model_M)) {
+  if (rtmIsMajorTimeStep((&root_model_M))) {
+    if (rtmIsMajorTimeStep((&root_model_M))) {
       /* Update for UnitDelay: '<Root>/Unit Delay' */
       root_model_DW.UnitDelay_DSTATE[0] = root_model_B.mv[0];
       root_model_DW.UnitDelay_DSTATE[1] = root_model_B.mv[1];
@@ -13348,8 +13308,8 @@ void root_model_step(void)
     }
   }                                    /* end MajorTimeStep */
 
-  if (rtmIsMajorTimeStep(root_model_M)) {
-    rt_ertODEUpdateContinuousStates(&root_model_M->solverInfo);
+  if (rtmIsMajorTimeStep((&root_model_M))) {
+    rt_ertODEUpdateContinuousStates(&(&root_model_M)->solverInfo);
 
     /* Update absolute time for base rate */
     /* The "clockTick0" counts the number of times the code of this task has
@@ -13357,8 +13317,9 @@ void root_model_step(void)
      * and "Timing.stepSize0". Size of "clockTick0" ensures timer will not
      * overflow during the application lifespan selected.
      */
-    ++root_model_M->Timing.clockTick0;
-    root_model_M->Timing.t[0] = rtsiGetSolverStopTime(&root_model_M->solverInfo);
+    ++(&root_model_M)->Timing.clockTick0;
+    (&root_model_M)->Timing.t[0] = rtsiGetSolverStopTime(&(&root_model_M)
+      ->solverInfo);
 
     {
       /* Update absolute timer for sample time: [1.0s, 0.0s] */
@@ -13367,13 +13328,13 @@ void root_model_step(void)
        * of the task. Size of "clockTick1" ensures timer will not overflow during the
        * application lifespan selected.
        */
-      root_model_M->Timing.clockTick1++;
+      (&root_model_M)->Timing.clockTick1++;
     }
   }                                    /* end MajorTimeStep */
 }
 
 /* Derivatives for root system: '<Root>' */
-void root_model_derivatives(void)
+void root_model::root_model_derivatives()
 {
   __m128d tmp;
   __m128d tmp_0;
@@ -13388,7 +13349,7 @@ void root_model_derivatives(void)
   real_T pData_idx_0;
   real_T pData_idx_1;
   real_T pData_idx_2;
-  _rtXdot = ((XDot_root_model_T *) root_model_M->derivs);
+  _rtXdot = ((XDot_root_model_T *) (&root_model_M)->derivs);
 
   /* Derivatives for EOM6DOFBodyQuat: '<Root>/6DOF (Quaternion)' */
   std::memset(&_rtXdot->uDOFQuaternion_CSTATE[0], 0, 13U * sizeof(real_T));
@@ -13504,102 +13465,64 @@ void root_model_derivatives(void)
 }
 
 /* Model initialize function */
-void root_model_initialize(void)
+void root_model::initialize()
 {
   /* Registration code */
   {
     /* Setup solver object */
-    rtsiSetSimTimeStepPtr(&root_model_M->solverInfo,
-                          &root_model_M->Timing.simTimeStep);
-    rtsiSetTPtr(&root_model_M->solverInfo, &rtmGetTPtr(root_model_M));
-    rtsiSetStepSizePtr(&root_model_M->solverInfo,
-                       &root_model_M->Timing.stepSize0);
-    rtsiSetdXPtr(&root_model_M->solverInfo, &root_model_M->derivs);
-    rtsiSetContStatesPtr(&root_model_M->solverInfo, (real_T **)
-                         &root_model_M->contStates);
-    rtsiSetNumContStatesPtr(&root_model_M->solverInfo,
-      &root_model_M->Sizes.numContStates);
-    rtsiSetNumPeriodicContStatesPtr(&root_model_M->solverInfo,
-      &root_model_M->Sizes.numPeriodicContStates);
-    rtsiSetPeriodicContStateIndicesPtr(&root_model_M->solverInfo,
-      &root_model_M->periodicContStateIndices);
-    rtsiSetPeriodicContStateRangesPtr(&root_model_M->solverInfo,
-      &root_model_M->periodicContStateRanges);
-    rtsiSetContStateDisabledPtr(&root_model_M->solverInfo, (boolean_T**)
-      &root_model_M->contStateDisabled);
-    rtsiSetErrorStatusPtr(&root_model_M->solverInfo, (&rtmGetErrorStatus
-      (root_model_M)));
-    rtsiSetRTModelPtr(&root_model_M->solverInfo, root_model_M);
+    rtsiSetSimTimeStepPtr(&(&root_model_M)->solverInfo, &(&root_model_M)
+                          ->Timing.simTimeStep);
+    rtsiSetTPtr(&(&root_model_M)->solverInfo, &rtmGetTPtr((&root_model_M)));
+    rtsiSetStepSizePtr(&(&root_model_M)->solverInfo, &(&root_model_M)
+                       ->Timing.stepSize0);
+    rtsiSetdXPtr(&(&root_model_M)->solverInfo, &(&root_model_M)->derivs);
+    rtsiSetContStatesPtr(&(&root_model_M)->solverInfo, (real_T **)
+                         &(&root_model_M)->contStates);
+    rtsiSetNumContStatesPtr(&(&root_model_M)->solverInfo, &(&root_model_M)
+      ->Sizes.numContStates);
+    rtsiSetNumPeriodicContStatesPtr(&(&root_model_M)->solverInfo,
+      &(&root_model_M)->Sizes.numPeriodicContStates);
+    rtsiSetPeriodicContStateIndicesPtr(&(&root_model_M)->solverInfo,
+      &(&root_model_M)->periodicContStateIndices);
+    rtsiSetPeriodicContStateRangesPtr(&(&root_model_M)->solverInfo,
+      &(&root_model_M)->periodicContStateRanges);
+    rtsiSetContStateDisabledPtr(&(&root_model_M)->solverInfo, (boolean_T**)
+      &(&root_model_M)->contStateDisabled);
+    rtsiSetErrorStatusPtr(&(&root_model_M)->solverInfo, (&rtmGetErrorStatus
+      ((&root_model_M))));
+    rtsiSetRTModelPtr(&(&root_model_M)->solverInfo, (&root_model_M));
   }
 
-  rtsiSetSimTimeStep(&root_model_M->solverInfo, MAJOR_TIME_STEP);
-  rtsiSetIsMinorTimeStepWithModeChange(&root_model_M->solverInfo, false);
-  rtsiSetIsContModeFrozen(&root_model_M->solverInfo, false);
-  root_model_M->intgData.y = root_model_M->odeY;
-  root_model_M->intgData.f[0] = root_model_M->odeF[0];
-  root_model_M->intgData.f[1] = root_model_M->odeF[1];
-  root_model_M->intgData.f[2] = root_model_M->odeF[2];
-  root_model_M->contStates = ((X_root_model_T *) &root_model_X);
-  root_model_M->contStateDisabled = ((XDis_root_model_T *) &root_model_XDis);
-  root_model_M->Timing.tStart = (0.0);
-  rtsiSetSolverData(&root_model_M->solverInfo, static_cast<void *>
-                    (&root_model_M->intgData));
-  rtsiSetSolverName(&root_model_M->solverInfo,"ode3");
-  rtmSetTPtr(root_model_M, &root_model_M->Timing.tArray[0]);
-  root_model_M->Timing.stepSize0 = 1.0;
-
-  /* block I/O */
-  (void) std::memset((static_cast<void *>(&root_model_B)), 0,
-                     sizeof(B_root_model_T));
-
-  /* states (continuous) */
-  {
-    (void) std::memset(static_cast<void *>(&root_model_X), 0,
-                       sizeof(X_root_model_T));
-  }
-
-  /* disabled states */
-  {
-    (void) std::memset(static_cast<void *>(&root_model_XDis), 0,
-                       sizeof(XDis_root_model_T));
-  }
-
-  /* states (dwork) */
-  (void) std::memset(static_cast<void *>(&root_model_DW), 0,
-                     sizeof(DW_root_model_T));
+  rtsiSetSimTimeStep(&(&root_model_M)->solverInfo, MAJOR_TIME_STEP);
+  rtsiSetIsMinorTimeStepWithModeChange(&(&root_model_M)->solverInfo, false);
+  rtsiSetIsContModeFrozen(&(&root_model_M)->solverInfo, false);
+  (&root_model_M)->intgData.y = (&root_model_M)->odeY;
+  (&root_model_M)->intgData.f[0] = (&root_model_M)->odeF[0];
+  (&root_model_M)->intgData.f[1] = (&root_model_M)->odeF[1];
+  (&root_model_M)->intgData.f[2] = (&root_model_M)->odeF[2];
+  (&root_model_M)->contStates = ((X_root_model_T *) &root_model_X);
+  (&root_model_M)->contStateDisabled = ((XDis_root_model_T *) &root_model_XDis);
+  (&root_model_M)->Timing.tStart = (0.0);
+  rtsiSetSolverData(&(&root_model_M)->solverInfo, static_cast<void *>
+                    (&(&root_model_M)->intgData));
+  rtsiSetSolverName(&(&root_model_M)->solverInfo,"ode3");
+  rtmSetTPtr((&root_model_M), &(&root_model_M)->Timing.tArray[0]);
+  (&root_model_M)->Timing.stepSize0 = 1.0;
 
   /* Start for DataStoreMemory: '<S3>/DataStoreMemory - P' */
   std::memcpy(&root_model_DW.P[0], &rtCP_DataStoreMemoryP_InitialVa[0], 289U *
               sizeof(real_T));
 
-  /* Start for DataStoreMemory: '<S3>/DataStoreMemory - x' */
-  std::memset(&root_model_DW.x[0], 0, 17U * sizeof(real_T));
-
   /* InitializeConditions for EOM6DOFBodyQuat: '<Root>/6DOF (Quaternion)' */
   root_model_X.uDOFQuaternion_CSTATE[0] = 0.0;
   root_model_X.uDOFQuaternion_CSTATE[3] = 0.0;
   root_model_X.uDOFQuaternion_CSTATE[6] = 0.0;
-
-  /* InitializeConditions for UnitDelay: '<Root>/Unit Delay' */
-  root_model_DW.UnitDelay_DSTATE[0] = 0.0;
-
-  /* InitializeConditions for EOM6DOFBodyQuat: '<Root>/6DOF (Quaternion)' */
   root_model_X.uDOFQuaternion_CSTATE[1] = 0.0;
   root_model_X.uDOFQuaternion_CSTATE[4] = 0.0;
   root_model_X.uDOFQuaternion_CSTATE[7] = 0.0;
-
-  /* InitializeConditions for UnitDelay: '<Root>/Unit Delay' */
-  root_model_DW.UnitDelay_DSTATE[1] = 0.0;
-
-  /* InitializeConditions for EOM6DOFBodyQuat: '<Root>/6DOF (Quaternion)' */
   root_model_X.uDOFQuaternion_CSTATE[2] = 0.0;
   root_model_X.uDOFQuaternion_CSTATE[5] = 0.0;
   root_model_X.uDOFQuaternion_CSTATE[8] = 0.0;
-
-  /* InitializeConditions for UnitDelay: '<Root>/Unit Delay' */
-  root_model_DW.UnitDelay_DSTATE[2] = 0.0;
-
-  /* InitializeConditions for EOM6DOFBodyQuat: '<Root>/6DOF (Quaternion)' */
   root_model_X.uDOFQuaternion_CSTATE[9] = 1.0;
   root_model_X.uDOFQuaternion_CSTATE[10] = 0.0;
   root_model_X.uDOFQuaternion_CSTATE[11] = 0.0;
@@ -13621,7 +13544,28 @@ void root_model_initialize(void)
 }
 
 /* Model terminate function */
-void root_model_terminate(void)
+void root_model::terminate()
 {
   /* (no terminate code required) */
+}
+
+/* Constructor */
+root_model::root_model() :
+  root_model_B(),
+  root_model_DW(),
+  root_model_X(),
+  root_model_XDis(),
+  root_model_M()
+{
+  /* Currently there is no constructor body generated.*/
+}
+
+/* Destructor */
+/* Currently there is no destructor body generated.*/
+root_model::~root_model() = default;
+
+/* Real-Time Model get method */
+RT_MODEL_root_model_T * root_model::getRTM()
+{
+  return (&root_model_M);
 }

@@ -2,7 +2,7 @@
 ## Makefile generated for component 'root_model'. 
 ## 
 ## Makefile     : root_model.mk
-## Generated on : Wed Nov 11 21:42:25 2026
+## Generated on : Thu Nov 12 13:53:54 2026
 ## Final product: $(RELATIVE_PATH_TO_ANCHOR)\root_model.exe
 ## Product type : executable
 ## 
@@ -174,7 +174,7 @@ INCLUDES = $(INCLUDES_BUILDINFO)
 ## DEFINES
 ###########################################################################
 
-DEFINES_BUILD_ARGS = -DCLASSIC_INTERFACE=0 -DALLOCATIONFCN=0 -DMAT_FILE=0 -DONESTEPFCN=1 -DTERMFCN=1 -DMULTI_INSTANCE_CODE=0 -DINTEGER_CODE=0 -DMT=0
+DEFINES_BUILD_ARGS = -DCLASSIC_INTERFACE=0 -DALLOCATIONFCN=0 -DMAT_FILE=0 -DONESTEPFCN=1 -DTERMFCN=1 -DMULTI_INSTANCE_CODE=1 -DINTEGER_CODE=0 -DMT=0
 DEFINES_CUSTOM = 
 DEFINES_OPTS = -DTID01EQ=1
 DEFINES_STANDARD = -DMODEL=root_model -DNUMST=2 -DNCSTATES=13 -DHAVESTDIO -DRT -DUSE_RTMODEL
@@ -185,9 +185,9 @@ DEFINES = $(DEFINES_BUILD_ARGS) $(DEFINES_CUSTOM) $(DEFINES_OPTS) $(DEFINES_STAN
 ## SOURCE FILES
 ###########################################################################
 
-SRCS = $(START_DIR)\root_model_grt_rtw\ekf_t_func.cpp $(START_DIR)\root_model_grt_rtw\root_model.cpp $(START_DIR)\root_model_grt_rtw\root_model_data.cpp
+SRCS = $(START_DIR)\root_model_grt_rtw\root_model.cpp $(START_DIR)\root_model_grt_rtw\root_model_data.cpp
 
-MAIN_SRC = $(MATLAB_ROOT)\rtw\c\src\common\rt_main.cpp
+MAIN_SRC = $(MATLAB_ROOT)\rtw\c\src\common\rt_cppclass_main.cpp
 
 ALL_SRCS = $(SRCS) $(MAIN_SRC)
 
@@ -195,9 +195,9 @@ ALL_SRCS = $(SRCS) $(MAIN_SRC)
 ## OBJECTS
 ###########################################################################
 
-OBJS = ekf_t_func.obj root_model.obj root_model_data.obj
+OBJS = root_model.obj root_model_data.obj
 
-MAIN_OBJ = rt_main.obj
+MAIN_OBJ = rt_cppclass_main.obj
 
 ALL_OBJS = $(OBJS) $(MAIN_OBJ)
 
@@ -416,10 +416,6 @@ $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS) $(LIBS) $(MAIN_OBJ)
 	$(CPP) $(CPPFLAGS) -Fo"$@" "$<"
 
 
-ekf_t_func.obj : "$(START_DIR)\root_model_grt_rtw\ekf_t_func.cpp"
-	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\root_model_grt_rtw\ekf_t_func.cpp"
-
-
 root_model.obj : "$(START_DIR)\root_model_grt_rtw\root_model.cpp"
 	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\root_model_grt_rtw\root_model.cpp"
 
@@ -428,8 +424,8 @@ root_model_data.obj : "$(START_DIR)\root_model_grt_rtw\root_model_data.cpp"
 	$(CPP) $(CPPFLAGS) -Fo"$@" "$(START_DIR)\root_model_grt_rtw\root_model_data.cpp"
 
 
-rt_main.obj : "$(MATLAB_ROOT)\rtw\c\src\common\rt_main.cpp"
-	$(CPP) $(CPPFLAGS) -Fo"$@" "$(MATLAB_ROOT)\rtw\c\src\common\rt_main.cpp"
+rt_cppclass_main.obj : "$(MATLAB_ROOT)\rtw\c\src\common\rt_cppclass_main.cpp"
+	$(CPP) $(CPPFLAGS) -Fo"$@" "$(MATLAB_ROOT)\rtw\c\src\common\rt_cppclass_main.cpp"
 
 
 ###########################################################################

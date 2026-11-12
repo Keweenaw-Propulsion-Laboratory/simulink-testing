@@ -7,9 +7,9 @@
  *
  * Code generation for model "root_model".
  *
- * Model version              : 1.97
+ * Model version              : 1.99
  * Simulink Coder version : 25.2 (R2025b) 28-Jul-2025
- * C++ source code generated on : Wed Nov 11 21:42:07 2026
+ * C++ source code generated on : Thu Nov 12 13:53:48 2026
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -37,33 +37,33 @@
 #define rtmSetTPtr(rtm, val)           ((rtm)->Timing.t = (val))
 #endif
 
-extern const real_T rtCP_pooled_dncvkHsf0V0w[17];
-extern const real_T rtCP_pooled_SILOYW4lbPMp[13];
-extern const real_T rtCP_pooled_4Rb06x98nFwl[9];
-extern const real_T rtCP_pooled_WtWM9lZWBlv3[289];
-extern const real_T rtCP_pooled_14l6eM7rQ1QF[169];
-extern const real_T rtCP_pooled_lNnM4YZ0eDCc[289];
+extern const real_T rtCP_pooled_OAywf2uaAdex[17];
+extern const real_T rtCP_pooled_diAhBWWNVPNH[13];
+extern const real_T rtCP_pooled_cEv1lNBE48f3[9];
+extern const real_T rtCP_pooled_SJBgJpKqUfJl[289];
+extern const real_T rtCP_pooled_0yWDPq4lclTh[169];
+extern const real_T rtCP_pooled_vybzbDfrJJXS[289];
 
-#define rtCP_Constant14_Value          rtCP_pooled_dncvkHsf0V0w  /* Expression: [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+#define rtCP_Constant14_Value          rtCP_pooled_OAywf2uaAdex  /* Expression: [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
                                                                   * Referenced by: '<Root>/Constant14'
                                                                   */
-#define rtCP_Constant2_Value           rtCP_pooled_SILOYW4lbPMp  /* Expression: w_ov
+#define rtCP_Constant2_Value           rtCP_pooled_diAhBWWNVPNH  /* Expression: w_ov
                                                                   * Referenced by: '<Root>/Constant2'
                                                                   */
-#define rtCP_Constant7_Value           rtCP_pooled_4Rb06x98nFwl  /* Expression: inertia_tensor
+#define rtCP_Constant7_Value           rtCP_pooled_cEv1lNBE48f3  /* Expression: inertia_tensor
                                                                   * Referenced by: '<Root>/Constant7'
                                                                   */
-#define rtCP_Q_Value                   rtCP_pooled_WtWM9lZWBlv3  /* Expression: p.Q
+#define rtCP_Q_Value                   rtCP_pooled_SJBgJpKqUfJl  /* Expression: p.Q
                                                                   * Referenced by: '<S3>/Q'
                                                                   */
-#define rtCP_R1_Value                  rtCP_pooled_14l6eM7rQ1QF  /* Expression: p.R{1}
+#define rtCP_R1_Value                  rtCP_pooled_0yWDPq4lclTh  /* Expression: p.R{1}
                                                                   * Referenced by: '<S3>/R1'
                                                                   */
-#define rtCP_DataStoreMemoryP_InitialVa rtCP_pooled_lNnM4YZ0eDCc /* Expression: p.InitialCovariance
+#define rtCP_DataStoreMemoryP_InitialVa rtCP_pooled_vybzbDfrJJXS /* Expression: p.InitialCovariance
                                                                   * Referenced by: '<S3>/DataStoreMemory - P'
                                                                   */
 
 /* private model entry point functions */
-extern void root_model_derivatives(void);
+extern void root_model_derivatives();
 
 #endif                                 /* root_model_private_h_ */

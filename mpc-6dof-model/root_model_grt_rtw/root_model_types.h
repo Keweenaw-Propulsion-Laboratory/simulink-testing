@@ -7,9 +7,9 @@
  *
  * Code generation for model "root_model".
  *
- * Model version              : 1.97
+ * Model version              : 1.99
  * Simulink Coder version : 25.2 (R2025b) 28-Jul-2025
- * C++ source code generated on : Wed Nov 11 21:42:07 2026
+ * C++ source code generated on : Thu Nov 12 13:53:48 2026
  *
  * Target selection: grt.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
