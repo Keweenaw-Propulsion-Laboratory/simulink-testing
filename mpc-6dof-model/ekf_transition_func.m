@@ -25,7 +25,13 @@ function x_hat = ekf_transition_func(x, extra_in)
         end
     end
     % leave the disturbance variables to be determined by the KF
+    
+    % normalize quaternion
+    x_quat = x_hat(7:10);
+    x_quat_n = norm(x_quat);
 
-    % TODO: normalize quaternion states
+    for i = 7:10
+        x_hat(i) = x_hat(i) / x_quat_n;
+    end
 end
 

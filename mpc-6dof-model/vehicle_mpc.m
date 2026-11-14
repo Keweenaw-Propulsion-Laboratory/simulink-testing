@@ -66,7 +66,7 @@ inertia_tensor = eye(3);
 
 % TODO: move all states to be in a single column vector
 
-createParameterBus(mpc_obj, ['root_model' '/Nonlinear MPC Controller'], 'mpc_params_bus', {kP, body_mass, gravity_accel, inertia_tensor, lever_arm});
+createParameterBus(mpc_obj, ['root_model/controls' '/Nonlinear MPC Controller'], 'mpc_params_bus', {kP, body_mass, gravity_accel, inertia_tensor, lever_arm});
 
 x0 = zeros(1,17);
 x0(1, 10) = 1;
